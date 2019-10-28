@@ -1,0 +1,189 @@
+<div class="container microsite">
+  <div class="col-lg-12 pull-left no-padding">
+  	<div class="col-lg-8 no-padding pull-left">
+  		<h1>Michael Rosenfeld Gallery, LLC </h1>
+  		<nav>
+  			<ul class="list-inline">
+  				<li ><a [routerLink]="['/layout/microsite']" >Overview </a></li>
+  				<li><a [routerLink]="['/layout/microsite-events']"  class="active">Events </a></li>
+  				<li><a [routerLink]="['/layout/microsite-artworks']" >Artworks </a></li>
+  			</ul>
+  		</nav>
+  	</div>
+  	<div class="col-lg-4 text-right pull-left">
+
+  		<a href="#">View Microsite <i class="fa fa-fw fa-external-link"></i></a><br/>
+  		<a href="#">Contact Client Services <i class="fa fa-fw fa-envelope-open"></i></a>
+  	</div>
+  </div>
+
+  <div class="col-lg-12 background_section pull-left">
+  	<h2>Add New Event</h2>
+  	 <form method="post" class="article_part_form" [formGroup]="MicrositeeventsForm">
+  	 	<fieldset class="col-lg-5">
+			 <label>Assign Location Information <span class="asstrick">*</span></label>
+			 <ng-select  [items]="entityLocation"
+			 bindLabel="entityName"
+			 formControlName="field_entity_profile_location"
+			 [multiple]="true"
+			 [hideSelected]="true"
+			 [loading]="entityLocationloading"
+			 [typeahead]="entityLocationinputs$"
+			>
+			</ng-select>
+ 			  <!-- <input  type="text" formControlName="" [ngClass]="{'form-control': true,'is-invalid': field_entity_profile_location.invalid && field_entity_profile_location.touched,'is-valid': field_entity_profile_location.valid}" class="form-control"/>
+             <small *ngIf="field_entity_profile_location.errors?.required && field_entity_profile_location.touched" class="form-text custom-invalid-feedback">Please fill the entity profile location</small>
+             <small *ngIf="field_entity_profile_location.errors?.minlength && field_entity_profile_location.touched"  class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small> -->
+ 		</fieldset>
+ 		 <fieldset class="sub-channels col-lg-9">
+ 		 	<label>Assign Event Type <span class="asstrick">*</span></label>
+            <ul class="list-inline product-chooser ">
+	          <li *ngFor="let control of visualArtsArray.controls; let i = index">
+	            <input type="checkbox" name="" [formControl]="control" (change)="getSelectedChannels()"  id="channels{{i}}"> {{visualArts[i]}}
+	          </li>
+	        </ul> 
+	      </fieldset>
+	      <fieldset class="col-lg-9">
+ 			<label>Event Title <span class="asstrick">*</span></label>
+ 			<input type="text" class="form-control" formControlName="title"  [ngClass]="{'form-control': true,'is-invalid': title.invalid && title.touched,'is-valid': title.valid}">
+      <small *ngIf="title.errors?.required && title.touched" class="form-text custom-invalid-feedback">Please fill the title</small>
+      <small *ngIf="title.errors?.minlength && title.touched"  class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+ 		</fieldset>
+ 		<fieldset class="col-lg-9">
+ 			    <label>Event Photo <span class="asstrick">*</span></label>
+                <input multiple="multiple" class="form-control" type="file" formControlName="main_event_photo" (change)="getFileDetails($event)" />
+                <span>Select an image to represent this event. If text is applicable include in "Image Information" section. The image should be <br/>640x380 pixels to ensure the highest quality. File type accepted are png, gif or jpg. File should be no larger than 2MB</span>
+                <label>Image Information (photo credit or caption)</label>
+                <input class="form-control" type="text" formControlName="field_event_image" >
+ 		</fieldset>
+ 		<fieldset class="col-lg-9">
+ 			    <label>Event Carousel Images <span class="asstrick">*</span></label>
+                <input multiple="multiple" class="form-control" type="file" formControlName="events_carousel_images" (change)="get_event_carousel_images($event)" />
+                <span>Select an image to represent this event. If text is applicable include in "Image Information" section. The image should be <br/>640x380 pixels to ensure the highest quality. File type accepted are png, gif or jpg. File should be no larger than 2MB</span>
+                <label>Image Information (photo credit or caption)</label>
+                <input class="form-control" type="text" formControlName="image_information" />
+				<label>Image Caption</label>
+				<ckeditor [editor]="ClassicEditorBuild" formControlName="image_caption" ></ckeditor>
+                <label>Image Credit</label>
+                <input class="form-control" type="text" formControlName="image_credit" />
+                <label>Image Title (Displays as a tool tip when user mouses over the image)</label>
+                <input class="form-control" type="text" formControlName="image_title" />
+                <label>Alternate Text</label>
+                <input class="form-control" type="text" formControlName="alt_text" />
+ 		</fieldset>
+ 		<fieldset class="col-lg-9" formGroupName="referenced_artists">
+ 			<label>Search & Assign Artist(s)</label>
+ 			<ng-select  [items]="artistdata | async"
+                   bindLabel="artistName"
+                   formControlName="field_artists"
+                   [multiple]="true"
+                   [hideSelected]="true"
+                   [loading]="artistsloading"
+                   placeholder="Search artists"
+                   [typeahead]="artistinputs$"
+                  >
+               </ng-select>
+               <span>To associate an artist with your event, please use the search box below. Enter the last name of artist. Once the name <br/> appears, select and click "Add Another item". You will know that the artist has been associated correctly once there is <br/> a 6 or 7 digit number after the artist name. Such as "Andy Warhol [nid:124242]"</span>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12" formGroupName="event_details">
+		  	   <label class="col-lg-12 pull-left no-padding">	Event Detail <span class="asstrick">*</span></label>
+			 	<div class="col-lg-6 pull-left no-padding" style="width: 48%;margin-right: 14px;">
+			 	<div class="form-group">
+			 		<label>Event website <span class="asstrick">*</span></label>
+			 		<input type="text" formControlName="field_website" class="form-control" [ngClass]="{'form-control': true,'is-invalid': field_website.invalid && field_website.touched,'is-valid': field_website.valid}"/>
+          <small *ngIf="field_website.errors?.required && field_website.touched" class="form-text custom-invalid-feedback">Please fill the website</small>
+           
+			 	</div>
+			 	<div class="form-group">
+			 		<label>Cost Currency</label>
+			 		<select class="form-control" formControlName="currencyCost" style="width: 30%;">
+			 			<option>USD</option>
+			 		</select>
+			 	</div>
+			 	<div class="form-group">
+			 		<label>Price range start </label>
+			 		<input type="text" formControlName="field_price_range_to" class="form-control"/>
+			 	</div>
+			 </div>
+			 	<div class="col-lg-6 pull-left no-padding">
+			 	<div class="form-group" style="margin-top: 6px;">
+			 		<label>Tickets Link </label>
+			 		<input type="text" formControlName="field_location_website" class="form-control"/>
+			 	</div>
+			 	<div class="form-group" style="margin-bottom: 53px;">
+			 		<label>&nbsp;</label>
+			 	</div>
+			 	<div class="form-group">
+			 		<label>Price range end </label>
+			 		<input type="text" formControlName="field_price_range" class="form-control"/>
+			 	</div>
+			 </div>
+			 
+ 		</fieldset>
+ 		<fieldset class="col-lg-12">
+ 		   <label class="col-lg-12 pull-left no-padding">	Event Date <span class="asstrick">*</span></label>
+ 		   	<label class="col-lg-12 no-padding pull-left">
+             <input type="checkbox" checked="checked" formControlName="field_artist_not_required"> Check this if no referenced artist</label>
+		   <div class="col-lg-6 pull-left no-padding" style="width: 48%;margin-right: 14px;">
+		   
+         	<div class="form-group">
+		   		<label>Start date</label>
+		   		<ng-datepicker formControlName="field_event_date" [options]="options"></ng-datepicker>
+		   	</div>
+			</div>
+		  <div class="col-lg-6 pull-left no-padding">
+	  		<div class="form-group">
+		   		<label>End date</label>
+		   		<ng-datepicker formControlName="field_event_date_to" [options]="options"></ng-datepicker>
+		   		
+		   	</div>
+			</div>
+			<div class="col-lg-12 no-padding pull-left">
+ 			<label></label>
+ 			<label class="col-lg-12 no-padding pull-left"  style="margin-bottom: 0"><input type="checkbox" formControlName="field_ongoing_event" style="margin-bottom: 0"> Ongoing</label>
+ 			<span>(Checking "ongoing" will cancel out any date information)</span>
+ 			
+ 		</div>
+ 		 <div class="col-lg-6 pull-left no-padding" style="width: 48%;margin-right: 14px;">
+		   	<label>Date</label>
+		   	<ng-datepicker formControlName="field_event_opening_date"  [options]="options"></ng-datepicker>
+		   		
+		</div>
+		<div class="col-lg-6 pull-left no-padding">
+			<div class="col-lg-6 no-padding pull-left" style="width: 48%; margin-right: 6px">
+				<label>Opening Start Time</label>
+			   		<select formControlName="field_event_opening_time_start" class="form-control">
+              <option selected [ngValue]="null">- None -</option><option value="none">none</option><option value="00:00">12:00am</option><option value="00:15">12:15am</option><option value="00:30">12:30am</option><option value="00:45">12:45am</option><option value="01:00">01:00am</option><option value="01:15">01:15am</option><option value="01:30">01:30am</option><option value="01:45">01:45am</option><option value="02:00">02:00am</option><option value="02:15">02:15am</option><option value="02:30">02:30am</option><option value="02:45">02:45am</option><option value="03:00">03:00am</option><option value="03:15">03:15am</option><option value="03:30">03:30am</option><option value="03:45">03:45am</option><option value="04:00">04:00am</option><option value="04:15">04:15am</option><option value="04:30">04:30am</option><option value="04:45">04:45am</option><option value="05:00">05:00am</option><option value="05:15">05:15am</option><option value="05:30">05:30am</option><option value="05:45">05:45am</option><option value="06:00">06:00am</option><option value="06:15">06:15am</option><option value="06:30">06:30am</option><option value="06:45">06:45am</option><option value="07:00">07:00am</option><option value="07:15">07:15am</option><option value="07:30">07:30am</option><option value="07:45">07:45am</option><option value="08:00">08:00am</option><option value="08:15">08:15am</option><option value="08:30">08:30am</option><option value="08:45">08:45am</option><option value="09:00">09:00am</option><option value="09:15">09:15am</option><option value="09:30">09:30am</option><option value="09:45">09:45am</option><option value="10:00">10:00am</option><option value="10:15">10:15am</option><option value="10:30">10:30am</option><option value="10:45">10:45am</option><option value="11:00">11:00am</option><option value="11:15">11:15am</option><option value="11:30">11:30am</option><option value="11:45">11:45am</option><option value="12:00">12:00pm</option><option value="12:15">12:15pm</option><option value="12:30">12:30pm</option><option value="12:45">12:45pm</option><option value="13:00">01:00pm</option><option value="13:15">01:15pm</option><option value="13:30">01:30pm</option><option value="13:45">01:45pm</option><option value="14:00">02:00pm</option><option value="14:15">02:15pm</option><option value="14:30">02:30pm</option><option value="14:45">02:45pm</option><option value="15:00">03:00pm</option><option value="15:15">03:15pm</option><option value="15:30">03:30pm</option><option value="15:45">03:45pm</option><option value="16:00">04:00pm</option><option value="16:15">04:15pm</option><option value="16:30">04:30pm</option><option value="16:45">04:45pm</option><option value="17:00">05:00pm</option><option value="17:15">05:15pm</option><option value="17:30">05:30pm</option><option value="17:45">05:45pm</option><option value="18:00">06:00pm</option><option value="18:15">06:15pm</option><option value="18:30">06:30pm</option><option value="18:45">06:45pm</option><option value="19:00">07:00pm</option><option value="19:15">07:15pm</option><option value="19:30">07:30pm</option><option value="19:45">07:45pm</option><option value="20:00">08:00pm</option><option value="20:15">08:15pm</option><option value="20:30">08:30pm</option><option value="20:45">08:45pm</option><option value="21:00">09:00pm</option><option value="21:15">09:15pm</option><option value="21:30">09:30pm</option><option value="21:45">09:45pm</option><option value="22:00">10:00pm</option><option value="22:15">10:15pm</option><option value="22:30">10:30pm</option><option value="22:45">10:45pm</option><option value="23:00">11:00pm</option><option value="23:15">11:15pm</option><option value="23:30">11:30pm</option><option value="23:45">11:45pm</option></select>
+			</div>
+			<div class="col-lg-6 pull-left no-padding">
+					<label>Opening End Time</label>
+			   		<select formControlName="field_event_opening_time_end" class="form-control"><option  selected [ngValue]="null">- None -</option><option value="none">none</option><option value="00:00">12:00am</option><option value="00:15">12:15am</option><option value="00:30">12:30am</option><option value="00:45">12:45am</option><option value="01:00">01:00am</option><option value="01:15">01:15am</option><option value="01:30">01:30am</option><option value="01:45">01:45am</option><option value="02:00">02:00am</option><option value="02:15">02:15am</option><option value="02:30">02:30am</option><option value="02:45">02:45am</option><option value="03:00">03:00am</option><option value="03:15">03:15am</option><option value="03:30">03:30am</option><option value="03:45">03:45am</option><option value="04:00">04:00am</option><option value="04:15">04:15am</option><option value="04:30">04:30am</option><option value="04:45">04:45am</option><option value="05:00">05:00am</option><option value="05:15">05:15am</option><option value="05:30">05:30am</option><option value="05:45">05:45am</option><option value="06:00">06:00am</option><option value="06:15">06:15am</option><option value="06:30">06:30am</option><option value="06:45">06:45am</option><option value="07:00">07:00am</option><option value="07:15">07:15am</option><option value="07:30">07:30am</option><option value="07:45">07:45am</option><option value="08:00">08:00am</option><option value="08:15">08:15am</option><option value="08:30">08:30am</option><option value="08:45">08:45am</option><option value="09:00">09:00am</option><option value="09:15">09:15am</option><option value="09:30">09:30am</option><option value="09:45">09:45am</option><option value="10:00">10:00am</option><option value="10:15">10:15am</option><option value="10:30">10:30am</option><option value="10:45">10:45am</option><option value="11:00">11:00am</option><option value="11:15">11:15am</option><option value="11:30">11:30am</option><option value="11:45">11:45am</option><option value="12:00">12:00pm</option><option value="12:15">12:15pm</option><option value="12:30">12:30pm</option><option value="12:45">12:45pm</option><option value="13:00">01:00pm</option><option value="13:15">01:15pm</option><option value="13:30">01:30pm</option><option value="13:45">01:45pm</option><option value="14:00">02:00pm</option><option value="14:15">02:15pm</option><option value="14:30">02:30pm</option><option value="14:45">02:45pm</option><option value="15:00">03:00pm</option><option value="15:15">03:15pm</option><option value="15:30">03:30pm</option><option value="15:45">03:45pm</option><option value="16:00">04:00pm</option><option value="16:15">04:15pm</option><option value="16:30">04:30pm</option><option value="16:45">04:45pm</option><option value="17:00">05:00pm</option><option value="17:15">05:15pm</option><option value="17:30">05:30pm</option><option value="17:45">05:45pm</option><option value="18:00">06:00pm</option><option value="18:15">06:15pm</option><option value="18:30">06:30pm</option><option value="18:45">06:45pm</option><option value="19:00">07:00pm</option><option value="19:15">07:15pm</option><option value="19:30">07:30pm</option><option value="19:45">07:45pm</option><option value="20:00">08:00pm</option><option value="20:15">08:15pm</option><option value="20:30">08:30pm</option><option value="20:45">08:45pm</option><option value="21:00">09:00pm</option><option value="21:15">09:15pm</option><option value="21:30">09:30pm</option><option value="21:45">09:45pm</option><option value="22:00">10:00pm</option><option value="22:15">10:15pm</option><option value="22:30">10:30pm</option><option value="22:45">10:45pm</option><option value="23:00">11:00pm</option><option value="23:15">11:15pm</option><option value="23:30">11:30pm</option><option value="23:45">11:45pm</option></select>
+			</div>
+		</div>
+		<div class="col-lg-12 no-padding pull-left">
+			<label>Description <span class="asstrick">*</span></label>
+			<ckeditor [editor]="ClassicEditorBuild" formControlName="description_caption" ></ckeditor>
+ 		</div>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding pull-left">
+ 			<label class="col-lg-12 no-padding pull-left">Press Release (PDF)</label>
+ 			<input type="file" formControlName="press_relese" multiple="multiple" (change)="getpressReleaseDetails($event)">
+ 			<span class="col-lg-12 no-padding pull-left"><br/>
+ 				Files must be less than 2 MB.<br/> Allowed file types: pdf.
+ 			</span>
+ 		</fieldset>
+ 		<fieldset class="col-lg-4">
+ 			<label class="col-lg-12 no-padding pull-left">Publising Options</label>
+ 			  <input type="checkbox" formControlName="published" class="checked_1"  value="Published,"> Published
+ 		</fieldset>
+
+ 		 <div class="col-lg-12 text-left pull-left no-padding" style="display: inline-block;">
+        	 <button type="button" [disabled]="MicrositeeventsForm.invalid" (click)="submitHandler()" class="btn btn-primary" style="margin-right: 10px;margin-bottom: 30px;padding: 6px 30px;">Save</button>
+           
+        </div>
+  	 </form>
+
+  </div>
+
+
+</div>

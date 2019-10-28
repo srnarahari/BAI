@@ -1,0 +1,50 @@
+ <form method="post" class="article_part_form" [formGroup]="authorForm">
+ <div class="col-lg-12 no-padding">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                     Author
+                </div>
+                <div class="card-body row">
+                	<div class="col-lg-6 pull-left">
+                    <fieldset>
+                        <label>Author(s)<span class="asstrick">*</span></label>
+                         <input id="tags" type="text" formControlName="author" [ngClass]="{'form-control': true,'is-invalid': author.invalid && author.touched,'is-valid': author.valid}" class="form-control"/>
+                         <small id="fnHelp" *ngIf="author.errors?.required && author.touched" class="form-text custom-invalid-feedback">Please fill the author's</small>
+                         <small id="fnHelp" *ngIf="author.errors?.minlength && author.touched" class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+                      </fieldset>
+                  </div>
+                  <div class="col-lg-6 pull-left">
+                       <fieldset>
+                        <label>Author(s) Name<span class="asstrick">*</span></label>
+                         <input id="tags" type="text" formControlName="authorName" [ngClass]="{'form-control': true,'is-invalid': authorName.invalid && authorName.touched,'is-valid': authorName.valid}" class="form-control"/>
+                         <small id="fnHelp" *ngIf="authorName.errors?.required && authorName.touched" class="form-text custom-invalid-feedback">Please fill the author name</small>
+                         <small id="fnHelp" *ngIf="authorName.errors?.minlength && authorName.touched" class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+                       </fieldset>
+                  </div>
+                  <div class="col-lg-6 pull-left">
+                       <fieldset>
+                        <label>Author(s) Title<span class="asstrick">*</span></label>
+                         <input id="tags" type="text" formControlName="authorTitle" [ngClass]="{'form-control': true,'is-invalid': authorTitle.invalid && authorTitle.touched,'is-valid': authorTitle.valid}" class="form-control"/>
+                         <small id="fnHelp" *ngIf="authorTitle.errors?.required && authorTitle.touched" class="form-text custom-invalid-feedback">Please fill the author title</small>
+                         <small id="fnHelp" *ngIf="authorTitle.errors?.minlength && authorTitle.touched" class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-6 pull-left">
+                       <fieldset>
+                        <label>Author(s) Description</label>
+                        
+                       <textarea formControlName="authorDescription" class="form-control" rows="5"></textarea>
+                      </fieldset>
+                      </div>
+
+                      <div class="col-lg-12 text-center">
+                      	 <button type="button" [disabled]="authorForm.invalid" (click)="submitHandler()" class="btn btn-primary">Submit</button>
+                      </div>
+                     
+                </div>
+              
+            </div>
+        
+            <!-- /.card -->
+        </div>
+</form>

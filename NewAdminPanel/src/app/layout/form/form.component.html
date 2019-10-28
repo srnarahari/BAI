@@ -1,0 +1,904 @@
+<div [@routerTransition] class="article_part_form">
+    <div class="col-lg-12">
+        <!--    <app-page-header [heading]="'Create Multi Content Type'" [icon]="'fa-edit'"></app-page-header>-->
+        <h3>Create Article</h3>
+    </div>
+
+    <form method="post" en [formGroup]="articleForm">
+
+        <div class="col-lg-8  pull-left">
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default">
+                    <div class="card-header">
+                        TITLE, SUMMARY, TAGS
+                    </div>
+                    <div class="card-body">
+                        <fieldset>
+
+
+
+                            <label class="ng-tns-c9-1">Title<span class="asstrick">*</span></label>
+                            <input type="text" formControlName="title" [ngClass]="{
+                      'form-control': true,'is-invalid': articleForm.controls.title.invalid && articleForm.controls.title.touched,
+              'is-valid': articleForm.controls.title.valid}"/>
+                            <small id="fnHelp"
+                                   *ngIf="articleForm.controls.title.errors?.required && articleForm.controls.title.touched"
+                                   class="form-text custom-invalid-feedback">Please fill the titile
+                            </small>
+                            <small id="fnHelp"
+                                   *ngIf="articleForm.controls.title.errors?.minlength && articleForm.controls.title.touched"
+                                   class="form-text custom-invalid-feedback">Value must contain atleast 5 characters
+                            </small>
+                        </fieldset>
+                        <fieldset>
+                            <label class="ng-tns-c9-1">Short Title<span class="asstrick">*</span> <span
+                                class="gray_content">(Maximum: 60 characters) </span></label>
+                            <input type="text"
+                                   [ngClass]="{'form-control': true, 'is-invalid': articleForm.controls.short_title.invalid && articleForm.controls.short_title.touched, 'is-valid': articleForm.controls.short_title.valid}"
+                                   formControlName="short_title"/>
+                            <small id="fnHelp"
+                                   *ngIf="articleForm.controls.short_title.errors?.required && articleForm.controls.short_title.touched"
+                                   class="form-text custom-invalid-feedback">Please fill the short title
+                            </small>
+                            <small id="fnHelp"
+                                   *ngIf="articleForm.controls.short_title.errors?.maxlength && articleForm.controls.short_title.touched"
+                                   class="form-text custom-invalid-feedback">Maximum length of short title is 60 characters
+                            </small>
+                        </fieldset>
+                        <fieldset>
+                            <label class="ng-tns-c9-1">Summary<span class="asstrick">*</span> <span
+                                class="gray_content">(Maximum: 180 characters) </span></label>
+                            <textarea
+                                [ngClass]="{'form-control': true, 'is-invalid': articleForm.controls.summary.invalid && articleForm.controls.summary.touched, 'is-valid': articleForm.controls.summary.valid}"
+                                formControlName="summary" rows="5"></textarea>
+                            <small id="fnHelp"
+                                   *ngIf="articleForm.controls.summary.errors?.required && articleForm.controls.summary.touched"
+                                   class="form-text custom-invalid-feedback">Please fill the summary
+                            </small>
+                            <small id="fnHelp"
+                                   *ngIf="articleForm.controls.summary.errors?.maxlength && articleForm.controls.summary.touched"
+                                   class="form-text custom-invalid-feedback">Maximum length of summary is 180
+                            </small>
+                        </fieldset>
+                        <fieldset>
+                            <!-- <label class="ng-tns-c9-1">Tags<span class="asstrick">*</span><span class="gray_content">Separate tags with commas </span></label>
+
+                            <input type="text" [ngClass]="{'form-control': true, 'is-invalid': tags.invalid && tags.touched, 'is-valid': tags.valid}" formControlName="tags"/>
+                             <small id="fnHelp" *ngIf="tags.errors?.required && tags.touched" class="form-text custom-invalid-feedback">Please fill the short title</small>
+                           <small id="fnHelp" *ngIf="tags.errors?.minlength && tags.touched" class="form-text custom-invalid-feedback">Min length of tags is 5</small> -->
+                            <div class="col-lg-12 no-padding">
+                                <label class="ng-tns-c9-1">Tags<!-- <span class="asstrick">*</span> --><span
+                                    class="gray_content">Separate tags with commas </span></label>
+                                <div class="tagSelection">
+                                    <ng-select [items]="tagdata | async"
+                                               bindLabel="tagName"
+                                               [virtualScroll]="true"
+                                               formControlName="tags"
+                                               [multiple]="true"    
+                                               [hideSelected]="true"
+                                               [loading]="tagloading"
+                                               placeholder="Search Tags"
+                                               [typeahead]="taginputs$"
+                                               [(ngModel)]="selectedCompanies"
+                                               (change)="onChange($event)"
+                                             >
+                                    </ng-select>
+                                    <!-- <br>
+                                        Selected value: {{selectedCompanies | json}}
+                                        <div *ngFor="let event of events">
+                                            ddd
+                                            <small>{{event.name}} - {{event.value | json}}</small>
+                                            <hr>
+                                        </div> -->
+                                </div>
+                                <div class="add-tag-button">
+                                    <button type="button" class="btn btn-primary" (click)="addTagModal(content)">Add
+                                        Tag
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+
+                        </fieldset>
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div><!--/.col-lg-12-->
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default">
+                    <div class="card-header">
+                        Select category
+                    </div>
+                    <div class="card-body">
+                    <div class="tabs">
+                        <div class="tab">
+                            <input type="radio" id="tab-1" formControlName="category_type_article" value="Visual arts" class="checked_visual_arts" checked>
+                            <label for="tab-1">VIS ARTS</label>
+
+                            <div class="content">
+                                <fieldset class="sub-channels">
+                                   <h3>Sub-Channels</h3>
+                                   <ul class="list-inline product-chooser ">
+                                       <li *ngFor="let control of subchannelsArray.controls; let i = index">
+                                           <input type="checkbox" [formControl]="control" name="sub_channels"
+                                                  (change)="getSelectedChannels()"
+                                                  id="channels{{i}}"> {{subChannels[i]}}
+                                       </li>
+                                   </ul>
+                               </fieldset>
+                               <fieldset class="sub-channels">
+                                   <h3>Sub-sub</h3>
+                                   <ul class="list-inline product-chooser">
+                                       <li *ngFor="let control of subSubsArray.controls; let i = index">
+                                            <input type="checkbox" name="" [formControl]="control"
+                                            (change)="getSelectedSub()" id="sub{{i}}"> {{subSubs[i]}}
+                                       </li>
+                                   </ul>
+                               </fieldset>
+                               <fieldset class="sub-channels">
+                                   <h3>Genre</h3>
+                                   <ul class="list-inline product-chooser ">
+                                       <li *ngFor="let control of genuresArray.controls; let i = index">
+                                            <input type="checkbox" name="" [formControl]="control"
+                                         (change)="getSelectedgenures()" id="sub{{i}}"> {{genures[i]}}
+                                       </li>
+                                   </ul>
+                               </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="tab">
+                            <input type="radio" id="tab-2" formControlName="category_type_article" value="Architecture design">
+                            <label for="tab-2">ARCH & DESIGN</label>
+
+                            <div class="content">
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-Channels</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of archSubChannelsArray.controls; let i = index">
+                                                  <input type="checkbox" name="ArchitectureChannels"
+                                                   (change)="getSelectedarchSubChannels()" [formControl]="control"
+                                                   id="archSubChannels{{i}}"> {{archSubChannels[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-sub</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of archSubSubArray.controls; let i = index">
+                                            <input type="checkbox" name="ArchitectureSubs"
+                                                   (change)="getSelectedarchSubSub()" [formControl]="control"
+                                                   id="archSubSub{{i}}"> {{archSubSub[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                         <div class="tab">
+                            <input type="radio" id="tab-3" formControlName="category_type_article" value="Performance & arts">
+                            <label for="tab-3">PERF ARTS</label>
+
+                            <div class="content">
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-Channels</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of PerSubChannelsArray.controls; let i = index">
+                                           <input type="checkbox" name="sub_channels"
+                                                  (change)="getSelectedPerSubChannels()" [formControl]="control"
+                                                  id="PerSubChannels{{i}}"> {{PerSubChannels[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-sub</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of PerSubSubArray.controls; let i = index">
+                                           <input type="checkbox" name="" (change)="getSelectedPerSubSub()"
+                                                  [formControl]="control" id="PerSubSub{{i}}"> {{PerSubSub[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <input type="radio" id="tab-4" formControlName="category_type_article" value="Lifestyle">
+                            <label for="tab-4">LIFESTYLE</label>
+
+                            <div class="content">
+                                <fieldset class="sub-channels">
+                                  <h3>Sub-Channels</h3>
+                                  <ul class="list-inline product-chooser ">
+                                      <li *ngFor="let control of LifeStyleSubChannelsArray.controls; let i = index">
+                                          <input type="checkbox" name="sub_channels"
+                                                 (change)="getSelectedLifeStyleSubChannels()" [formControl]="control"
+                                                 id="channels{{i}}"> {{LifeStyleSubChannels[i]}}
+                                      </li>
+                                  </ul>
+                              </fieldset>
+                              <fieldset class="sub-channels">
+                                  <h3>Sub-sub</h3>
+                                  <ul class="list-inline product-chooser ">
+                                      <li *ngFor="let control of LifeStyleSubSub; let i = index">
+                                          <li *ngFor="let control of LifeStyleSubSubArray.controls; let i = index">
+                                             <input type="checkbox" name="" (change)="getSelectedLifeStyleSubSub()"
+                                                    [formControl]="control" id="sub{{i}}"> {{LifeStyleSubSub[i]}}
+                                      </li>
+                                  </ul>
+                              </fieldset>
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <input type="radio" id="tab-5" formControlName="category_type_article" value="Fashion">
+                            <label for="tab-5">FASHION</label>
+
+                            <div class="content">
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-Channels</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of FashionSubChannelsArray.controls; let i = index">
+                                            <input type="checkbox" name="sub_channels"
+                                                   (change)="getSelectedFashionSubChannels()" [formControl]="control"
+                                                   id="channels{{i}}"> {{FashionSubChannels[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-sub</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of FashionSubSubArray.controls; let i = index">
+                                             <input type="checkbox" name="" (change)="getSelectedFashionSubSub()"
+                                                    [formControl]="control" id="sub{{i}}"> {{FashionSubSub[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="tab">
+                                <input type="radio" id="tab-7" formControlName="category_type_article" value="Books">
+                                <label for="tab-7">Books</label>
+
+                                <div class="content">
+                                    <fieldset class="sub-channels">
+                                        <h3>Sub-Channels</h3>
+                                      <label style="border: none;padding: 0;font-size: 13px;">  <input type="checkbox" > Book </label>
+                                    </fieldset>
+                                 </div>
+                            </div>
+                        <div class="tab">
+                            <input type="radio" id="tab-6" formControlName="category_type_article" value="Travel">
+                            <label for="tab-6">TRAVEL</label>
+
+                            <div class="content">
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-Channels</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of TravelSubChannelsArray.controls; let i = index">
+                                            <input type="checkbox" name="sub_channels"
+                                                   (change)="getSelectedTravelSubChannels()" [formControl]="control"
+                                                   id="TravelSubChannelsArray{{i}}"> {{TravelSubChannels[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                                <fieldset class="sub-channels">
+                                    <h3>Sub-sub</h3>
+                                    <ul class="list-inline product-chooser ">
+                                        <li *ngFor="let control of TravelSubSub; let i = index">
+                                            <li *ngFor="let control of TravelSubSubArray.controls; let i = index">
+                                                <input type="checkbox" name="" (change)="getSelectedTravelSubSub()"
+                                                       [formControl]="control" id="sub{{i}}"> {{TravelSubSub[i]}}
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </div>
+                     </div>
+
+
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div> <!--/.col-lg-12-->
+
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default file_upload_system">
+                    <div class="card-header">
+                        main image upload
+                    </div>
+                    <div class="card-body">
+
+                        <fieldset class="main_img_class">
+
+                            <label class="ng-tns-c9-1">Main Image<span class="asstrick">*</span><span
+                                class="gray_content">(max 1063 x 709)</span></label>
+
+                            <p>Main image displays at the top of this article (except when slider images are used) and
+                                on the homepage, channel pages, carousel etc. (Files must be less than 2MB. Allowed file
+                                types: <b>png gif jpg jpeg</b>.)
+                            </p>
+
+                            <input type="file" id="file" formControlName="uploadFiles"
+                                   (change)="getFileDetails($event)"
+                                   [ngClass]="{'form-control': true, 'is-invalid': articleForm.controls.uploadFiles.invalid && articleForm.controls.uploadFiles.touched, 'is-valid': articleForm.controls.uploadFiles.valid}"
+                                   >
+                                   <small id="fnHelp"
+                                   *ngIf="articleForm.controls.uploadFiles.errors?.required && articleForm.controls.uploadFiles.touched"
+                                   class="form-text custom-invalid-feedback">Please upload main images
+                            </small>
+                                   <img [src]='uploadFiles' value="img" class="main_img"  alt="Forest"  *ngIf="uploadFiles" >
+                            <span class="img_part" style="display: none"><i class="fa fa-times-circle"></i></span>
+                            <input type="hidden" name="fileHidden" formControlName="main_img_uploader"/>
+                            <p *ngIf="file" class="pl-4 align-middle mb-0">{{file.name}}</p>
+                            <input type="hidden" formControlName="article_page" [(ngModel)]="hiddenInput" />
+                        </fieldset>
+
+                        <!--                          <fieldset> -->
+                        <!--                                <label class="ng-tns-c9-1">Feature Image<span class="asstrick">*</span> <span class="gray_content">(Optional) (450 x 355) </span></label>-->
+                        <!--                                <p>This image will appear on the homepage as the large category image (Files must be less than 2MB. Allowed file types : <b>png gif jpg JPEG</b>)</p>-->
+                        <!--                                <input type="file" class="" multiple (change)="getFeatureImg($event)"  value="UPLOAD" maxlength=""/>-->
+                        <!--                                <input type="hidden" name="fileHidden" formControlName="feature_image"/>-->
+                        <!--                              <p *ngIf="file" class="pl-4 align-middle mb-0">{{file.name}}</p>-->
+                        <!--                          </fieldset>-->
+                        <fieldset>
+                            <label>Image Caption</label>
+                            <ckeditor [editor]="ClassicEditorBuild" formControlName="image_caption"></ckeditor>
+
+                        </fieldset>
+                        <fieldset>
+                            <label class="ng-tns-c9-1">Image Credit</label>
+                            <input type="text" class="form-control" formControlName="image_credit"/>
+                        </fieldset>
+                        <fieldset>
+                            <label class="ng-tns-c9-1">Image Title <span class="gray_content">(Displays as a tool tip when user mouses over the image)</span></label>
+                            <input type="text" class="form-control" formControlName="imageTitle"/>
+                        </fieldset>
+                        <fieldset>
+                            <label class="ng-tns-c9-1">Alternate Text <span class="gray_content">(This text will be used by search engines only)</span></label>
+                            <input type="text" class="form-control" formControlName="alt_text"/>
+                        </fieldset>
+
+                    </div>
+                </div>
+
+            </div> <!--/.col-lg-12-->
+            <div class="col-lg-12 no-padding" formArrayName="para_data">
+                <div class="card card-default">
+                    <div class="card-header">
+                        add text & image paragraph
+                    </div>
+                    <div class="card-body">
+                        <div class="col-lg-12 no-padding"
+                             *ngFor="let group of addParagraphArray.controls; let i = index;" [formGroupName]="i">
+                            <h4 style="font-size: 15px;font-weight: bold;"> Paragraph {{i + 1}}</h4>
+                            <fieldset>
+                                <label class="ng-tns-c9-1">Paragraph Header <span class="gray_content">(Leave blank if no paragraph header)</span></label>
+                                <input type="text" class="form-control" formControlName="para_head"/>
+                            </fieldset>
+                            <fieldset>
+                                <label>Paragraph Body <span
+                                    class="gray_content">(leave blank if no paragraph body)</span></label>
+                                    <ckeditor [editor]="ClassicEditorBuild" formControlName="para_body"></ckeditor>
+
+                            </fieldset>
+                            <fieldset>
+                                <label class="ng-tns-c9-1">Paragraph Image <span class="gray_content">(leave blank if no paragraph image) </span></label>
+                                <img [src]='uploadedParagraphImgs[i].location' alt="Forest" style="width:150px" *ngIf="uploadedParagraphImgs">
+                                <div class="col-lg-12  no-padding">
+                                    <input type="file" class="" (change)="getParagraphImg($event)"
+                                           value="UPLOAD" style="margin-bottom:5px;"/>
+
+                                </div>
+                                <p>Files must be less than 2MB. Allowed file types: <b>png gif jpg jpeg</b></p>
+                            </fieldset>
+                            <fieldset>
+                                <label class="ng-tns-c9-1">Paragraph Image Caption/Credit</label>
+                                <input type="text" class="form-control" formControlName="para_img_cap_credit"/>
+                            </fieldset>
+
+                            <fieldset>
+                                <label class="ng-tns-c9-1">Image Title <span class="gray_content">(Display as a tool tip when user mouses over image)</span></label>
+                                <input type="text" class="form-control" formControlName="para_image_title"/>
+                            </fieldset>
+                            <fieldset>
+                                <label class="ng-tns-c9-1">Alternate Text <span class="gray_content">(This text will be used by search engines only)</span></label>
+                                <input type="text" class="form-control" formControlName="para_alt_text"/>
+                            </fieldset>
+                            <fieldset>
+                                <button class="btn btn-primary" style="margin-right:10px;margin-bottom:20px;"
+                                        (click)="addParagraph()">Add Another Paragraph
+                                </button>
+
+                                <button class="btn btn-danger" style="margin-right:10px;margin-bottom:20px;"
+                                        (click)="removeParagraph(i)">Remove Paragraph
+                                </button>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!--/.col-lg-12-->
+            <div class="col-lg-12 no-padding">
+                    <fieldset class="col-lg-12 no-padding">
+                            <table class="table table-bordered" formGroupName="slider_carousel">
+                               <thead>
+                                 <tr>
+                                   <th colspan="">
+                                        slider image upload
+                                   </th>
+                                   <th>Order</th>
+                                   <th>Slider</th>
+                                 </tr>
+                               </thead>
+                               <tbody>
+                                 <tr  *ngFor="let group of addcarouselArray.controls; let i = index;" [formGroupName]="i">
+                                   <td>
+                                        <fieldset>
+                                            <label>Slider images</label>
+                                            <img [src]='uploadedSlideImg' alt="Forest" style="width:150px" *ngIf="uploadedSlideImg">
+                                            <div class="col-lg-12  no-padding">
+                                                <input type="file" class="" value="Bulk upload" multiple (change)="getslideImg($event)"
+                                                        style="margin-bottom:5px;"/>
+                                                <input type="hidden" name="fileHidden" formControlName="sliderImg"/>
+                                                <p *ngIf="file" class="pl-4 align-middle mb-0">{{file.name}}</p>
+                                            </div>
+                                        </fieldset>
+                                       <fieldset>
+                                            <label>Image Caption</label>
+                                            <ckeditor [editor]="ClassicEditorBuild" formControlName="imageCaption" style="margin-bottom:20px;"></ckeditor>
+
+                                       </fieldset>
+                                       <fieldset>
+                                            <label class="ng-tns-c9-1">Image Credit</label>
+                                            <input type="text" class="form-control" formControlName="ImageCredit"/>
+                                       </fieldset>
+                                       <fieldset>
+                                            <label class="ng-tns-c9-1">Image Title <span class="gray_content">(Displays as a tool tip when user mouses over the image)</span></label>
+                                            <input type="text" class="form-control" formControlName="ImageTitle"/>
+                                       </fieldset>
+                                       <fieldset>
+                                            <label class="ng-tns-c9-1">Alternate Text <span class="gray_content">(This text will be used by search engines only)</span></label>
+                                            <input type="text" class="form-control" formControlName="AltText"/>
+                                       </fieldset>
+
+                                   </td>
+                                   <td>
+                                     <select class="form-control" style="width: 100px; ">
+                                       <option>{{i}}</option>
+                                     </select>
+                                   </td>
+                                   <td align="center" style="width: 150px; ">
+                                    <button class="btn btn-primary" style="margin-right:10px;margin-bottom:20px;" (click)="addcarousel()"><i class="fa fa-plus"></i></button>
+                                    <button class="btn btn-danger" style="margin-right:10px;margin-bottom:20px;" (click)="removecarousel(i)"><i class="fa fa-minus"></i></button>
+                                   </td>
+                                 </tr>
+                               </tbody>
+                             </table>
+                         </fieldset>
+
+                <!-- /.card-->
+            </div> <!--/.col-lg-12-->
+
+        </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4 pull-left">
+            <div class="col-lg-12 no-padding">
+
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        select author
+                    </div>
+                    <div class="card-body searchbar">
+                        <fieldset>
+                            <label>Select and add author(s)<span class="asstrick">*</span></label>
+                            <ng-select [items]="authordata"
+                                       bindLabel="profile.firstName"
+
+                                       formControlName="author_article"
+                                       [multiple]="true"
+                                       [hideSelected]="true"
+                                       [loading]="authorloading"
+                                       placeholder="Select author"
+                                       [typeahead]="authorinputs$"
+                            >
+
+                            </ng-select>
+
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <!-- /.card -->
+            </div>
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        Assign to homepage(s <label><span class="asstrick">*</span></label>
+                    </div>
+                    <div class="card-body sub-channels">
+                        <fieldset>
+                            <ul class="list-inline product-chooser product_all">
+                                <li *ngFor="let control of AllCountryArray.controls; let i = index">
+                                    <input type="checkbox" name="All_country" (change)="getSelectCountry()"
+                                           [formControl]="control" id="channels{{i}}"> {{AllCountry[i]}}
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <!-- /.card -->
+            </div>
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        Assign region and city
+                    </div>
+                    <div class="card-body">
+                        <fieldset>
+                            <label>Global Region <span class="asstrick">*</span> </label>
+                            <ng-select [items]="country_all"
+                                       bindLabel="country"
+
+                                       [virtualScroll]="true"
+                                       placeholder="Please select Region"
+                                       formControlName="GlobalRegion"
+                            >
+
+                            </ng-select>
+                            <p>Select a global region to label this article</p>
+                        </fieldset>
+                        <fieldset>
+                            <label>City <span class="asstrick">*</span> </label>
+                            <select formControlName="globalarticleRegion" class="form-control">
+                                <option selected [ngValue]="null">- Select a value -</option>
+                                <option value="410850">Other</option>
+                                <option value="399543">Abu Dhabi</option>
+                                <option value="25323">Amsterdam</option>
+                                <option value="24638476">Antwerp</option>
+                                <option value="18212551">Aspen</option>
+                                <option value="24638467">Atlanta</option>
+                                <option value="24638477">Avignon</option>
+                                <option value="25324">Bangalore</option>
+                                <option value="24604074">Bangkok</option>
+                                <option value="17166">Barcelona</option>
+                                <option value="24608141">Basel</option>
+                                <option value="17173">Beijing</option>
+                                <option value="24638478">Beirut</option>
+                                <option value="17179">Berlin</option>
+                                <option value="24638474">Beverly Hills</option>
+                                <option value="25370">Bogota</option>
+                                <option value="24638464">Boston</option>
+                                <option value="24638479">Brescia</option>
+                                <option value="24638480">Bruges</option>
+                                <option value="24620733">Brussels</option>
+                                <option value="24638553">Budapest</option>
+                                <option value="17177">Buenos Aires</option>
+                                <option value="24638554">Cannes</option>
+                                <option value="24638555">Cape Town</option>
+                                <option value="24609517">Caribbean</option>
+                                <option value="24638556">Chagny</option>
+                                <option value="17162">Chicago</option>
+                                <option value="24638447">Cologne</option>
+                                <option value="24638557">Copenhagen</option>
+                                <option value="24638475">Culver City</option>
+                                <option value="24638471">Dallas</option>
+                                <option value="16577">Delhi</option>
+                                <option value="24638468">Denver</option>
+                                <option value="24604073">Dubai</option>
+                                <option value="24638558">Dublin</option>
+                                <option value="24638559">Düsseldorf</option>
+                                <option value="24638560">Edinburgh</option>
+                                <option value="24638561">Eindhoven</option>
+                                <option value="24638562">Florence</option>
+                                <option value="25144">Frankfurt</option>
+                                <option value="24638563">Freiburg</option>
+                                <option value="24609081">Geneva</option>
+                                <option value="24638564">Ghent</option>
+                                <option value="24638565">Glasgow</option>
+                                <option value="25344">Goa</option>
+                                <option value="24638566">Gravenhage</option>
+                                <option value="24638567">Haarlem</option>
+                                <option value="24638568">Hamburg</option>
+                                <option value="24638570">Helsinki</option>
+                                <option value="25146">Hong Kong</option>
+                                <option value="24638472">Houston</option>
+                                <option value="17174">Istanbul</option>
+                                <option value="24620734">Jakarta</option>
+                                <option value="24638571">Johannesburg</option>
+                                <option value="24638572">Knokke</option>
+                                <option value="24638573">Kolkata</option>
+                                <option value="24638450">Kyoto</option>
+                                <option value="24638575">Lausanne</option>
+                                <option value="24638576">Liège</option>
+                                <option value="24638578">Lisbon</option>
+                                <option value="17168">London</option>
+                                <option value="17163">Los Angeles</option>
+                                <option value="24638580">Lucerne</option>
+                                <option value="24638581">Maastricht</option>
+                                <option value="17169">Madrid</option>
+                                <option value="24627515">Manilla</option>
+                                <option value="24638584">Marseille</option>
+                                <option value="25366">Melbourne</option>
+                                <option value="25367">Mexico City</option>
+                                <option value="17164">Miami</option>
+                                <option value="17170">Milan</option>
+                                <option value="25368">Montreal</option>
+                                <option value="23982">Moscow</option>
+                                <option value="25369">Mumbai</option>
+                                <option value="25145">Munich</option>
+                                <option value="24638585">Naples</option>
+                                <option value="16578">New York</option>
+                                <option value="24638586">Oslo</option>
+                                <option value="16579">Paris</option>
+                                <option value="24638465">Philadelphia</option>
+                                <option value="19388">Rio de Janeiro</option>
+                                <option value="17171">Rome</option>
+                                <option value="24638587">Rotterdam</option>
+                                <option value="24638473">San Antonio</option>
+                                <option value="25372">San Francisco</option>
+                                <option value="24606911">Santa Fe</option>
+                                <option value="25371">Santiago</option>
+                                <option value="18465">São Paulo</option>
+                                <option value="24638588">Schoonhoven</option>
+                                <option value="20894">Seoul</option>
+                                <option value="24638657">Sevres</option>
+                                <option value="17175">Shanghai</option>
+                                <option value="25373">Singapore</option>
+                                <option value="24638658">Sint-Martens-Latem</option>
+                                <option value="24638659">Stalden</option>
+                                <option value="24638660">Stockholm</option>
+                                <option value="24638661">Straubing</option>
+                                <option value="17176">Sydney</option>
+                                <option value="24638662">Taipei</option>
+                                <option value="24638663">Tel Aviv</option>
+                                <option value="18212552">The Hamptons</option>
+                                <option value="20893">Tokyo</option>
+                                <option value="17165">Toronto</option>
+                                <option value="24638664">Turin</option>
+                                <option value="24638665">Utrecht</option>
+                                <option value="24638666">Valencia</option>
+                                <option value="24638667">Vancouver</option>
+                                <option value="18212546">Venice</option>
+                                <option value="24638668">Venlo</option>
+                                <option value="24638669">Verona</option>
+                                <option value="17172">Vienna</option>
+                                <option value="24638670">Waalwijk</option>
+                                <option value="24638671">Warsaw</option>
+                                <option value="24638672">Warszawa</option>
+                                <option value="24638466">Washington DC</option>
+                                <option value="24638673">West Covina</option>
+                                <option value="24638674">West Hollywood</option>
+                                <option value="24638675">Wijnegem</option>
+                                <option value="24638676">Zaltbommel</option>
+                                <option value="24638677">Zuoz</option>
+                                <option value="24638448">Zurich</option>
+                                <option value="24638678">Zwolle</option>
+                            </select>
+                            <p>Select a city to display this article in the Travel vertical. For articles that don't
+                                fit, select "Other"</p>
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <!-- /.card -->
+            </div>
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        Reference items
+                    </div>
+                    <div class="card-body">
+                        <fieldset class="border_bottom_section">
+                            <label>Reference Artist(s) <span class="asstrick">*</span></label>
+                            <label><input type="checkbox" formControlName="ReferenceArtist" />
+                                Check this box if no referenced artist </label>
+                            <p>Select artist(s) referenced in this article</p>
+                            <div *ngIf="!articleForm.get('ReferenceArtist').value">
+                                <ng-select  [items]="artistdata"
+                                           bindLabel="artistName"
+                                           formControlName="artistData"
+                                           [multiple]="true"
+                                           [hideSelected]="true"
+                                           [loading]="artistsloading"
+                                           placeholder="Search artists"
+                                           [typeahead]="artistinputs$"
+                                >
+                                </ng-select>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="card-body">
+                        <fieldset class="border_bottom_section">
+                            <label>Reference Venue(s)<span class="asstrick">*</span></label>
+                            <label><input type="checkbox" formControlName="ReferenceVenue"/>
+                                Check this box if no referenced venue </label>
+                            <p>Select venue(s) referenced in this article</p>
+                            <div *ngIf="!articleForm.get('ReferenceVenue').value">
+                                <ng-select  [items]="venuedata"
+                                            bindLabel="entityName"
+                                            formControlName="referencevenue"
+                                            [multiple]="true"
+                                            [hideSelected]="true"
+                                            [loading]="venueloading"
+                                            placeholder="Search venue by entity name"
+                                            [typeahead]="venueinputs$"
+                                >
+                                </ng-select>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="card-body">
+                        <fieldset class="border_bottom_section">
+                            <label>Reference Event(s) </label>
+                            <p>Select event(s) referenced in this article</p>
+                            <ng-select [items]="eventdata"
+                                       bindLabel="title"
+                                       formControlName="referenceEvents"
+                                       [multiple]="true"
+                                       [hideSelected]="true"
+                                       [loading]="eventloading"
+                                       placeholder="Search by events title"
+                                       [typeahead]="eventinputs$"
+                            >
+                            </ng-select>
+
+                        </fieldset>
+                    </div>
+                    <div class="card-body">
+                        <fieldset class="border_bottom_section">
+                            <label>Display Artist's Top Auction Results </label>
+                            <p>Select artist to display top auction results from BASI at the bottom of this article</p>
+                            <ng-select [items]="artistdata"
+                                       bindLabel="artistName"
+                                       formControlName="auctionResults"
+                                       [multiple]="true"
+                                       [hideSelected]="true"
+                                       [loading]="artistsloading"
+                                       placeholder="Search artists"
+                                       [typeahead]="artistinputs$"
+                            >
+                            </ng-select>
+
+
+                        </fieldset>
+                    </div>
+                    <div class="card-body">
+                        <fieldset class="border_bottom_section" style="border-bottom:0;">
+                            <label>Reference a Related Photo Gallery</label>
+                            <p>Search and select a photo gallery</p>
+<!--                            <input type="text" class="form-control"/>-->
+                            <ng-select [items]="slideShowdata"
+                                       bindLabel="title"
+                                       formControlName="referenceSlideShow"
+                                       [multiple]="true"
+                                       [hideSelected]="true"
+                                       [loading]="slideShowloading"
+                                       placeholder="Search slideShow"
+                                       [typeahead]="slideShowinputs$"
+                            >
+                            </ng-select>
+
+                        </fieldset>
+                    </div>
+
+                </div>
+
+
+                <!-- /.card -->
+            </div>
+
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        Recommend articles
+                    </div>
+                    <div class="card-body">
+                        <fieldset>
+                            <p>Recommended articles are automatically generated through tags. However, you can
+                                manually override this feature by selecting up to 3 articles to display at the bottom of
+                                this article.
+                            </p>
+                            <p>Select Recommended Articles:</p>
+                            <ng-select [items]="recomendedArticlesData"
+                                       bindLabel="title"
+                                       formControlName="recommendArticles"
+                                       [multiple]="true"
+                                       [hideSelected]="true"
+                                       placeholder="Search Articles">
+                            </ng-select>
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <!-- /.card -->
+            </div>
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        seo keywords
+                    </div>
+                    <div class="card-body">
+                        <fieldset>
+                            <label>SEO Keywords <span class="gray_content">(200 characters max)</span></label>
+
+                            <input type="text" class="form-control"/>
+
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <!-- /.card -->
+            </div>
+            <div class="col-lg-12 no-padding">
+                <div class="card card-default mb-3">
+                    <div class="card-header">
+                        publishing options <label><span class="asstrick">*</span></label>
+                    </div>
+                    <div class="card-body">
+                        <fieldset>
+                            <ul class="list-inline product-chooser col-lg-12 no-padding pro_options">
+                                <li class="product-chooser-item selected"><input type="radio" name="n"/> Publishing
+                                    options
+                                </li>
+                                <li class="product-chooser-item"><input type="radio" name="n"/>Scheduling</li>
+                                <li class="product-chooser-item"><input type="radio" name="n"/> URL</li>
+                            </ul>
+                            <span>{{articleForm.get('Published').value}}</span>
+                            <ul class="list-inline">
+                                <li>
+                                    <label><input type="radio" value="true" name="Published" formControlName="Published"/> Published</label></li>
+                                <li>
+                                    <label><input type="radio" value="false" name="Published" formControlName="Published"/> Save as draft</label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <!-- /.card -->
+            </div>
+            <!-- /.card .chat-card -->
+        </div>
+        <!-- /.col-lg-4 -->
+
+        <div class="col-lg-12 row submit_button">
+            <button type="button" (click)="submitForm()" class="btn btn-primary"
+                    [disabled]="articleForm.invalid || loading">Save <i class="fa fa-spinner fa-spin fa-fw"
+                                                                        *ngIf="loading"></i></button>
+            <!-- <button type="button" class="btn btn-secondary">Preview</button> -->
+
+        </div>
+
+    </form>
+</div>
+
+<ng-template #content let-modal>
+    <div>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Adding New Tag</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <label class="ng-tns-c9-1">Tag Name<span class="asstrick" style="color:red;">*</span></label>
+            <input type="text" class="form-control" [(ngModel)]='NewTag'>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="addTag()">Save</button>
+        </div>
+    </div>
+</ng-template>
+
+

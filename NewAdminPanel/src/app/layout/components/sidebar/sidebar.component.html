@@ -1,0 +1,276 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a [routerLink]="['/layout/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="showArticle">
+            <i class="fa fa-fw fa-book"></i>&nbsp;
+            <span>{{ 'Create Article' | translate }}</span>
+        </a>
+     
+         <a [routerLink]="['/layout/administration']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="userService.roleMatch(['admin'])">
+            <i class="fa fa-fw fa-lock"></i>&nbsp;
+            <span>{{ 'Administration' | translate }}</span>
+        </a>
+         <a [routerLink]="['/layout/artist']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="showArtists">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'Artists' | translate }}</span>
+        </a>
+        <!-- <a [routerLink]="['/layout/getarticles']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'My Articles' | translate }}</span>
+        </a> -->
+        <a [routerLink]="['/layout/artwork']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="showArtwork">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'Artwork' | translate }}</span>
+        </a>
+        <a [routerLink]="['/layout/events']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="showEvents">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'Events' | translate }}</span>
+        </a>
+        <a [routerLink]="['/layout/entity-Location']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="showVenue">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'Venue' | translate }}</span>
+        </a>
+
+        <a [routerLink]="['/layout/slide-show']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="showSlideShow">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'Slide Show' | translate }}</span>
+        </a>
+       
+
+        <div class="nested-menu" *ngIf="userService.roleMatch(['admin','Editor','Guest_Editor'])">
+            <a class="list-group-item" (click)="showList = !showList">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'List' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showList">
+                <ul class="submenu">
+                    <li>
+                         <a [routerLink]="['/layout/getarticles']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span>{{ 'Articles List' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/layout/getArtwork']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Artworks List' | translate }}</span>
+                        </a>
+                    </li>
+<!--                    <li>-->
+<!--                        <a [routerLink]="['/layout/popular-slideshow']" [routerLinkActive]="['router-link-active']" class="list-group-item">-->
+<!--                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;-->
+<!--                            <span> {{ 'Popular slideshow' | translate }}</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+                     <li>
+                        <a [routerLink]="['/layout/getEntityLocation']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Venus List' | translate }}</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a [routerLink]="['/layout/getEvent']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Events List' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/layout/get-artist']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Artists List' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/layout/get-slide-show']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Slides Show List' | translate }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu" *ngIf="showSite">
+            <a class="list-group-item" (click)="showMenus = !showMenus">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Site Configuration' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenus">
+                <ul class="submenu">
+                    <li>
+                         <a [routerLink]="['/layout/site-configuration']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span>{{ 'Sliders' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/layout/trending-configuration']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Trend configuration' | translate }}</span>
+                        </a>
+                    </li>
+                   
+                     <li>
+                        <a [routerLink]="['/layout/top-global-stories']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Top global stories' | translate }}</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a [routerLink]="['/layout/features']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Features' | translate }}</span>
+                        </a>
+                    </li>
+                     <!-- <li>
+                        <a [routerLink]="['/layout/popular-slideshow']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span> {{ 'Popular slideshow' | translate }}</span>
+                        </a>
+                    </li> -->
+                    <li>
+                            <a [routerLink]="['/layout/homepage']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                                <span> {{ 'Homepage api configuration' | translate }}</span>
+                            </a>
+                        </li>
+                   
+                </ul>
+            </li>
+        </div>
+     <!--    <a [routerLink]="['/layout/trend']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+            <span>{{ 'Trend' | translate }}</span>
+        </a> -->
+         <div class="nested-menu" *ngIf="showTravels">
+            <a class="list-group-item" (click)="showMenu = !showMenu">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Travels' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/layout/travel-profile']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Travel profile' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/layout/travel-city']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Travel city' | translate }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+           <div class="nested-menu" *ngIf="showMicroSite">
+            <a class="list-group-item" (click)="showMenudd = !showMenudd">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Microsite' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenudd">
+                <ul class="submenu">
+                    <li>
+                          <a [routerLink]="['/layout/microsite']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span>{{ 'Microsite create' | translate }}</span>
+                        </a>
+       
+                    </li>
+                    <li>
+                         <a [routerLink]="['/layout/microsite-edit']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-dribbble"></i>&nbsp;
+                            <span>{{ 'Microsite edit' | translate }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+        
+        <div class="header-fields" *ngIf="showRltAndLtr">
+            <a (click)="rltAndLtr()" class="list-group-item">
+                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+            </a>
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('languages')">
+                    <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }} <b class="caret"></b></span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'languages'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('en')">
+                                {{ 'English' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fr')">
+                                {{ 'French' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('ur')">
+                                {{ 'Urdu' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('es')">
+                                {{ 'Spanish' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('it')">
+                                {{ 'Italian' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fa')">
+                                {{ 'Farsi' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('de')">
+                                {{ 'German' | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div>
+</nav>

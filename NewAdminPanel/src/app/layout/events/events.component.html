@@ -1,0 +1,472 @@
+
+<div class="col-lg-12"><h4>Create Event </h4>
+
+</div>
+ <form method="post" class="article_part_form" [formGroup]="eventsForm">
+ 	<div class="col-lg-8 pull-left">
+
+<fieldset class="border_bottom_section">
+  <label>Entity Profile & Location<span class="asstrick">*</span></label>
+<ng-select  [items]="entityLocation"
+ bindLabel="entityName"
+ formControlName="field_entity_profile_location"
+ [hideSelected]="true"
+            [multiple]="true"
+ [loading]="entityLocationloading"
+ [typeahead]="entityLocationinputs$"
+            (change)="addedEntity()"
+>
+</ng-select>
+
+</fieldset>
+        <fieldset *ngIf="eventsForm.controls.field_entity_profile_location.value">
+            <label>Select Preferred Location<span class="asstrick">*</span></label>
+            <ng-select  [items]="selectedVenueLocations"
+                        bindLabel="locationName"
+                        formControlName="defaultLocation"
+                        [hideSelected]="true"
+            ></ng-select>
+        </fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<div class="card card-default">
+
+                    <div class="card-header">
+                        SELECT EVENT TYPE
+                    </div>
+                  <div class="card-body">
+
+                    <div class="tabs">
+                      <div class="tab-button-outer">
+                        <ul id="tab-button">
+                          <li><a href="#tab01" (click)="selectedCategoryType = 'Visual arts'">VISUAL ARTS</a></li>
+                          <li><a href="#tab02" (click)="selectedCategoryType = 'Performance & arts'">Performing Arts</a></li>
+                          <li><a href="#tab03" (click)="selectedCategoryType = 'Lifestyle'">LIFESTYLE</a></li>
+                          <li><a href="#tab04" (click)="selectedCategoryType = 'Architecture design'">Architecture and design</a></li>
+
+                        </ul>
+                      </div>
+
+                      <div id="tab01" class="tab-contents">
+                       <fieldset class="sub-channels">
+
+                        <ul class="list-inline product-chooser ">
+                          <li *ngFor="let control of visualArtsArray.controls; let i = index">
+                            <input type="checkbox" name="" [formControl]="control" (change)="getSelectedChannels()"  id="channels{{i}}"> {{visualArts[i]}}
+                          </li>
+                        </ul>
+                      </fieldset>
+                   </div>
+                   <div id="tab02" class="tab-contents">
+                       <fieldset class="sub-channels">
+                        <ul class="list-inline product-chooser ">
+                          <li *ngFor="let control of performingArtsArray.controls; let i = index">
+                            <input type="checkbox" name="" [formControl]="control" (change)="getSelectedperformingArts()"  id="channels{{i}}"> {{PerformingArts[i]}}
+                          </li>
+                        </ul>
+                      </fieldset>
+                   </div>
+                   <div id="tab03" class="tab-contents">
+                       <fieldset class="sub-channels">
+                        <ul class="list-inline product-chooser ">
+                          <li *ngFor="let control of LifeStyleArray.controls; let i = index">
+                            <input type="checkbox" name="" [formControl]="control" (change)="getSelectedlifeStyle()"  id="channels{{i}}"> {{Lifestyle[i]}}
+                          </li>
+                        </ul>
+                      </fieldset>
+                   </div>
+                   <div id="tab04" class="tab-contents">
+                       <fieldset class="sub-channels">
+                         <ul class="list-inline product-chooser ">
+                          <li *ngFor="let control of arcDesignArray.controls; let i = index">
+                            <input type="checkbox" name="" [formControl]="control" (change)="getSelectedArcDesign()"  id="channels{{i}}"> {{ArcDesign[i]}}
+                          </li>
+                        </ul>
+                      </fieldset>
+                   </div>
+                </div>
+            </div>
+        </div>
+
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label class="col-lg-12 no-padding"><input type="checkbox" formControlName="field_bool_single_chkbx_yes_no" class="art_failr_events"> Art Fair Event? <span>(checking this box will incorporate this listing on the Fairs pages)</span></label>
+
+
+ 		</fieldset>
+    <fieldset class="col-lg-12 no-padding art_failr_events_show" formGroupName="gallery" style="display: none;">
+      <div class="card card-default">
+        <div class="card-header">
+              Art Fair
+        </div>
+        <div class="card-body">
+           <div class="card-header">
+              Galleries
+        </div>
+        <div class="card-body" >
+        <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="">
+                Artists Artworks
+              </th>
+              <th>Order</th>
+              <th>Events</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let group of addParagraphArray.controls; let i = index;" [formGroupName]="i">
+              <td>
+                <label>Gallery</label>
+                <input class="form-control gallery_keyup_section" type="text" formControlName="field_events_artfair" >
+                <label>Booth # </label>
+                <input class="form-control"  type="text" formControlName="field_events_both" >
+              </td>
+              <td>
+                <select class="form-control">
+                  <option>{{i}}</option>
+                </select>
+              </td>
+              <td align="center">
+               <button class="btn btn-primary" style="margin-right:10px;margin-bottom:20px;" (click)="addGallery()"><i class="fa fa-plus"></i></button>
+               <button class="btn btn-danger" style="margin-right:10px;margin-bottom:20px;" (click)="removeParagraph(i)"><i class="fa fa-minus"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+       </div>
+        </div>
+        </div>
+      </div>
+    </fieldset>
+
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>Event Title <span class="asstrick">*</span></label>
+ 			<input type="text" class="form-control" formControlName="title" [ngClass]="{'form-control': true,'is-invalid': title.invalid && title.touched,'is-valid': title.valid}">
+      <small *ngIf="title.errors?.required && title.touched" class="form-text custom-invalid-feedback">Please fill the title</small>
+      <small *ngIf="title.errors?.minlength && title.touched"  class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+		  <button class="accordion active">Main Event image  <span class="asstrick">*</span></button>
+          <div class="panel" style="max-height: 713px;">
+            <h6 _ngcontent-c9="" class="card-title">Event photo  <span class="asstrick">*</span></h6>
+              <img [src]='uploadedMainPhoto' alt="Forest" style="width:150px" *ngIf="uploadedMainPhoto">
+            <input type="file" multiple="multiple" formControlName="main_event_photo" (change)="getFileDetails($event)" [ngClass]="{'form-control': true,'is-invalid': main_event_photo.invalid && main_event_photo.touched,'is-valid': main_event_photo.valid}">
+             <small *ngIf="main_event_photo.errors?.required && main_event_photo.touched" class="form-text custom-invalid-feedback">Please uplod main event images</small>
+            <div class="description">Max size 845x500</div>
+            <label>Image Information (photo credit or caption)</label>
+            <input class="text-full form-text form-control" type="text" formControlName="field_img_credit" value="" size="60" maxlength="255">
+          </div>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+       <table class="table table-bordered" formGroupName="event_carousel">
+          <thead>
+            <tr>
+              <th colspan="">
+                Event Carousel images
+              </th>
+              <th>Order</th>
+              <th>Events</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let group of addcarouselArray.controls; let i = index;" [formGroupName]="i">
+              <td>
+                <label>Event Photo</label>
+                  <img [src]='uploadedEventImage[i].location' alt="Forest" style="width:150px" *ngIf="uploadedEventImage">
+                <input multiple="multiple" class="form-control" type="file" formControlName="events_carousel_images" (change)="get_event_carousel_images($event)" />
+                <p>Max size 845x500</p>
+                <label>Image Information (photo credit or caption)</label>
+                <input class="form-control" type="text" formControlName="field_event_image" >
+              </td>
+              <td>
+                <select class="form-control" style="width: 100px; ">
+                  <option>{{i}}</option>
+                </select>
+              </td>
+              <td align="center" style="width: 150px; ">
+               <button class="btn btn-primary" style="margin-right:10px;margin-bottom:20px;" (click)="addcarousel()"><i class="fa fa-plus"></i></button>
+               <button class="btn btn-danger" style="margin-right:10px;margin-bottom:20px;" (click)="removecarousel(i)"><i class="fa fa-minus"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+       <label>Event Description </label>
+       <ckeditor [editor]="ClassicEditorBuild" formControlName="description_caption" ></ckeditor>
+
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding" style="margin-top: 20px;">
+		   <div class="card card-default" formGroupName="event_details">
+			 <div class="card-header" style="text-transform: capitalize">
+			   	Event details
+			 </div>
+			 <div class="card-body">
+			 	<div class="form-group">
+			 		<label>Website <span class="asstrick">*</span></label>
+			 		<input type="text" formControlName="field_website" class="form-control" [ngClass]="{'form-control': true,'is-invalid': field_website.invalid && field_website.touched,'is-valid': field_website.valid}"/>
+          <small *ngIf="field_website.errors?.required && field_website.touched" class="form-text custom-invalid-feedback">Please fill the website</small>
+
+			 	</div>
+			 	<div class="form-group">
+			 		<label>Tickets Link </label>
+			 		<input type="text" formControlName="field_location_website" class="form-control"/>
+			 	</div>
+			 	<div class="form-group">
+			 		<label>Price range end </label>
+			 		<input type="text" formControlName="field_price_range" class="form-control"/>
+			 	</div>
+			 	<div class="form-group">
+			 		<label>Price range start </label>
+			 		<input type="text" formControlName="field_price_range_to" class="form-control"/>
+			 	</div>
+			 	<div class="form-group">
+			 		<label class="col-lg-12 no-padding"><input type="checkbox" formControlName="field_editors_pick"> Editor's Pick</label>
+
+			 	</div>
+			 </div>
+		   </div>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding" >
+ 			<h6><b>Referenced Artists</b> <hr/></h6>
+ 			<label class="col-lg-12 no-padding">
+
+        <input type="checkbox" checked="checked" formControlName="field_artist_not_required"> Check this if no referenced artist</label>
+       <span><i>Please select Artists referenced in this event. This will displays a link to the artist's overview page on the event detail page..</i></span>
+       <ng-select  [items]="artistdata"
+       bindLabel="artistName"
+       formControlName="field_artists"
+       [multiple]="true"
+       [hideSelected]="true"
+       [loading]="artistsloading"
+       placeholder="Search artists"
+       [typeahead]="artistinputs$"
+      >
+   </ng-select>
+      
+ 			
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding" formGroupName="referenced_article">
+ 			<h6><b>Referenced Articles</b> <hr/></h6>
+ 			  <table class="table table-striped table-bordered">
+             <thead>
+                <tr>
+                    <th></th>
+                </tr>
+             </thead>
+             <tbody>
+              <tr>
+                <td>
+                  <ng-select  [items]="articledata"
+                   bindLabel="title"
+                   formControlName="field_referenced_article"
+                   [multiple]="true"
+                   [hideSelected]="true"
+                   [loading]="articleloading"
+                   placeholder="Search by article title"
+                   [typeahead]="articleinputs$"
+                  >
+               </ng-select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+					<ng-select  [items]="articledata"
+                   bindLabel="title"
+                   formControlName="field_referenced_article"
+                   [multiple]="true"
+                   [hideSelected]="true"
+                   [loading]="articleloading"
+                   placeholder="Search by article title"
+                   [typeahead]="articleinputs$"
+                  >
+               </ng-select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+					<ng-select  [items]="articledata"
+                   bindLabel="title"
+                   formControlName="field_referenced_article"
+                   [multiple]="true"
+                   [hideSelected]="true"
+                   [loading]="articleloading"
+                   placeholder="Search by article title"
+                   [typeahead]="articleinputs$"
+                  >
+               </ng-select>
+                </td>
+              </tr>
+
+          </tbody>
+         </table>
+ 		</fieldset>
+
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label class="col-lg-12 no-padding">Press Release (PDF)</label>
+ 			<input type="file" formControlName="press_relese" multiple="multiple" (change)="getpressReleaseDetails($event)">
+ 			<span class="col-lg-12 no-padding"><br/>
+ 				Files must be less than 2 MB.<br/> Allowed file types: pdf.
+ 			</span>
+ 		</fieldset>
+ <!-- 		<fieldset class="col-lg-12 no-padding bottom_section">
+ 			 <div class="tabs">
+                      <div class="tab-button-outer">
+                        <ul id="tab-button">
+                          <li class="is-active"><a href="#tab03_au" class="active">Revision information <span class="show_rev show_author_hide" style="display: none;">New revision </span> <span class="hide_revision show_author_hide">No revision</span>
+                            <span class="author_on show_author_hide">  </span></a></li>
+
+                          <li><a href="#tab04_au">URL path setting
+                            <span class="show_url show_author_hide" ></span>
+                            <span class="hide_url show_author_hide">No alias</span>
+                           </a></li>
+
+                          <li><a href="#tab01_au">Authoring information By <span class="anonymus">Anonymous </span> <span class="show_author"></span>
+                            <span class="author_on show_author_hide">  </span></a></li>
+                          <li><a href="#tab02_au">A Publishing options
+                            <span class="not_publised show_author_hide">Not published</span>
+                            <span class="show_author_1 show_author_hide"></span>
+                            <span class="show_author_2 show_author_hide"></span>
+                            <span class="show_author_3 show_author_hide"></span>
+                          </a></li>
+                        </ul>
+                      </div>
+                      <div class="tab-contents_1">
+                      <div id="tab03_au" class="tab-contents" style="">
+
+                     <fieldset>
+                       <label>
+                       <input type="checkbox" formControlName="new_revision" class="new_revision_chk" /> Create new revision
+                       </label>
+
+                       <textarea formControlName="revision_message" class="form-control revision_message"></textarea>
+                       <span>Provide an explanation of the changes you are making. This will help other authors understand your motivations.</span>
+                    </fieldset>
+                    </div>
+                    <div id="tab04_au" class="tab-contents" style="">
+
+                     <fieldset>
+                     <label>URL alias</label>
+                      <input type="text" formControlName="urlalias" class="url_alias form-control">
+                      <span>Optionally specify an alternative URL by which this content can be accessed. For example, type "about" when writing an about page. Use a relative path and don't add a trailing slash or the URL alias won't work.</span>
+                    </fieldset>
+                    </div>
+                      <div id="tab01_au" class="tab-contents" style="">
+                       <fieldset>
+                       <label>Authored by</label>
+                       <input type="text" formControlName="authored_by" class="form-control seo_keywords"/>
+                       <span>Leave blank for Anonymous.</span>
+                    </fieldset>
+                     <fieldset>
+                       <label>Authored on</label>
+                       <input type="text" formControlName="authored_on" class="form-control author_on_section"/>
+                       <span>Format: 2019-02-07 23:48:24 -0500. The date format is YYYY-MM-DD and -0500 is the time zone offset from UTC. Leave blank to use the time of form submission.</span>
+                    </fieldset>
+                    </div>
+                     <div id="tab02_au" class="tab-contents">
+                       <label class="col-lg-12">
+                        <input type="checkbox" formControlName="published" class="checked_1"  value="Published,"> Published
+                      </label>
+                       <label class="col-lg-12">
+                        <input type="checkbox" class="checked_2" formControlName="published" value="Promoted to front page,"> Promoted to front page
+                      </label>
+                      <label class="col-lg-12">
+                        <input type="checkbox" class="checked_3" formControlName="published" value="Sticky at top of lists">Sticky at top of lists
+                      </label>
+                    </div>
+                  </div>
+                  </div>
+ 		</fieldset> -->
+ 	</div>
+ 	<div class="col-lg-4 pull-left">
+
+ 		<fieldset class="col-lg-12 no-padding" style="margin-top: 20px;">
+ 			<div class="card card-default">
+			   <div class="card-header">
+			   	 Event Date
+			   </div>
+			   <div class="card-body">
+			   	<fieldset class="col-lg-12 no-padding">
+			   		<label>Date</label>
+			   		<ng-datepicker formControlName="field_event_date" [options]="options"></ng-datepicker>
+
+			   	</fieldset>
+			   	<label>to </label>
+			   	<fieldset class="col-lg-12 no-padding">
+			   		<label>Date</label>
+			   		<ng-datepicker formControlName="field_event_date_to" [options]="options"></ng-datepicker>
+
+			   	</fieldset>
+
+			   </div>
+ 			</div>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+			   		<label>Opening Start Time</label>
+			   		<select formControlName="field_event_opening_time_start" class="form-control">
+              <option selected [ngValue]="null">- None -</option><option value="none">none</option><option value="00:00">12:00am</option><option value="00:15">12:15am</option><option value="00:30">12:30am</option><option value="00:45">12:45am</option><option value="01:00">01:00am</option><option value="01:15">01:15am</option><option value="01:30">01:30am</option><option value="01:45">01:45am</option><option value="02:00">02:00am</option><option value="02:15">02:15am</option><option value="02:30">02:30am</option><option value="02:45">02:45am</option><option value="03:00">03:00am</option><option value="03:15">03:15am</option><option value="03:30">03:30am</option><option value="03:45">03:45am</option><option value="04:00">04:00am</option><option value="04:15">04:15am</option><option value="04:30">04:30am</option><option value="04:45">04:45am</option><option value="05:00">05:00am</option><option value="05:15">05:15am</option><option value="05:30">05:30am</option><option value="05:45">05:45am</option><option value="06:00">06:00am</option><option value="06:15">06:15am</option><option value="06:30">06:30am</option><option value="06:45">06:45am</option><option value="07:00">07:00am</option><option value="07:15">07:15am</option><option value="07:30">07:30am</option><option value="07:45">07:45am</option><option value="08:00">08:00am</option><option value="08:15">08:15am</option><option value="08:30">08:30am</option><option value="08:45">08:45am</option><option value="09:00">09:00am</option><option value="09:15">09:15am</option><option value="09:30">09:30am</option><option value="09:45">09:45am</option><option value="10:00">10:00am</option><option value="10:15">10:15am</option><option value="10:30">10:30am</option><option value="10:45">10:45am</option><option value="11:00">11:00am</option><option value="11:15">11:15am</option><option value="11:30">11:30am</option><option value="11:45">11:45am</option><option value="12:00">12:00pm</option><option value="12:15">12:15pm</option><option value="12:30">12:30pm</option><option value="12:45">12:45pm</option><option value="13:00">01:00pm</option><option value="13:15">01:15pm</option><option value="13:30">01:30pm</option><option value="13:45">01:45pm</option><option value="14:00">02:00pm</option><option value="14:15">02:15pm</option><option value="14:30">02:30pm</option><option value="14:45">02:45pm</option><option value="15:00">03:00pm</option><option value="15:15">03:15pm</option><option value="15:30">03:30pm</option><option value="15:45">03:45pm</option><option value="16:00">04:00pm</option><option value="16:15">04:15pm</option><option value="16:30">04:30pm</option><option value="16:45">04:45pm</option><option value="17:00">05:00pm</option><option value="17:15">05:15pm</option><option value="17:30">05:30pm</option><option value="17:45">05:45pm</option><option value="18:00">06:00pm</option><option value="18:15">06:15pm</option><option value="18:30">06:30pm</option><option value="18:45">06:45pm</option><option value="19:00">07:00pm</option><option value="19:15">07:15pm</option><option value="19:30">07:30pm</option><option value="19:45">07:45pm</option><option value="20:00">08:00pm</option><option value="20:15">08:15pm</option><option value="20:30">08:30pm</option><option value="20:45">08:45pm</option><option value="21:00">09:00pm</option><option value="21:15">09:15pm</option><option value="21:30">09:30pm</option><option value="21:45">09:45pm</option><option value="22:00">10:00pm</option><option value="22:15">10:15pm</option><option value="22:30">10:30pm</option><option value="22:45">10:45pm</option><option value="23:00">11:00pm</option><option value="23:15">11:15pm</option><option value="23:30">11:30pm</option><option value="23:45">11:45pm</option></select>
+			   	</fieldset>
+			   	<fieldset class="col-lg-12 no-padding">
+			   		<label>Opening End Time</label>
+			   		<select formControlName="field_event_opening_time_end" class="form-control"><option  selected [ngValue]="null">- None -</option><option value="none">none</option><option value="00:00">12:00am</option><option value="00:15">12:15am</option><option value="00:30">12:30am</option><option value="00:45">12:45am</option><option value="01:00">01:00am</option><option value="01:15">01:15am</option><option value="01:30">01:30am</option><option value="01:45">01:45am</option><option value="02:00">02:00am</option><option value="02:15">02:15am</option><option value="02:30">02:30am</option><option value="02:45">02:45am</option><option value="03:00">03:00am</option><option value="03:15">03:15am</option><option value="03:30">03:30am</option><option value="03:45">03:45am</option><option value="04:00">04:00am</option><option value="04:15">04:15am</option><option value="04:30">04:30am</option><option value="04:45">04:45am</option><option value="05:00">05:00am</option><option value="05:15">05:15am</option><option value="05:30">05:30am</option><option value="05:45">05:45am</option><option value="06:00">06:00am</option><option value="06:15">06:15am</option><option value="06:30">06:30am</option><option value="06:45">06:45am</option><option value="07:00">07:00am</option><option value="07:15">07:15am</option><option value="07:30">07:30am</option><option value="07:45">07:45am</option><option value="08:00">08:00am</option><option value="08:15">08:15am</option><option value="08:30">08:30am</option><option value="08:45">08:45am</option><option value="09:00">09:00am</option><option value="09:15">09:15am</option><option value="09:30">09:30am</option><option value="09:45">09:45am</option><option value="10:00">10:00am</option><option value="10:15">10:15am</option><option value="10:30">10:30am</option><option value="10:45">10:45am</option><option value="11:00">11:00am</option><option value="11:15">11:15am</option><option value="11:30">11:30am</option><option value="11:45">11:45am</option><option value="12:00">12:00pm</option><option value="12:15">12:15pm</option><option value="12:30">12:30pm</option><option value="12:45">12:45pm</option><option value="13:00">01:00pm</option><option value="13:15">01:15pm</option><option value="13:30">01:30pm</option><option value="13:45">01:45pm</option><option value="14:00">02:00pm</option><option value="14:15">02:15pm</option><option value="14:30">02:30pm</option><option value="14:45">02:45pm</option><option value="15:00">03:00pm</option><option value="15:15">03:15pm</option><option value="15:30">03:30pm</option><option value="15:45">03:45pm</option><option value="16:00">04:00pm</option><option value="16:15">04:15pm</option><option value="16:30">04:30pm</option><option value="16:45">04:45pm</option><option value="17:00">05:00pm</option><option value="17:15">05:15pm</option><option value="17:30">05:30pm</option><option value="17:45">05:45pm</option><option value="18:00">06:00pm</option><option value="18:15">06:15pm</option><option value="18:30">06:30pm</option><option value="18:45">06:45pm</option><option value="19:00">07:00pm</option><option value="19:15">07:15pm</option><option value="19:30">07:30pm</option><option value="19:45">07:45pm</option><option value="20:00">08:00pm</option><option value="20:15">08:15pm</option><option value="20:30">08:30pm</option><option value="20:45">08:45pm</option><option value="21:00">09:00pm</option><option value="21:15">09:15pm</option><option value="21:30">09:30pm</option><option value="21:45">09:45pm</option><option value="22:00">10:00pm</option><option value="22:15">10:15pm</option><option value="22:30">10:30pm</option><option value="22:45">10:45pm</option><option value="23:00">11:00pm</option><option value="23:15">11:15pm</option><option value="23:30">11:30pm</option><option value="23:45">11:45pm</option></select>
+			   	</fieldset>
+			   <fieldset class="col-lg-12 no-padding">
+			   	<div class="card card-default">
+			   <div class="card-header">
+			   	 Event Opening Date
+			   </div>
+			   <div class="card-body">
+			   	<label>Date</label>
+			   	<ng-datepicker formControlName="field_event_opening_date"  [options]="options"></ng-datepicker>
+
+			   </div>
+			</div>
+
+
+			   </fieldset>
+			   <fieldset class="col-lg-12 no-padding">
+			   	<label>SEO Keywords</label>
+			   	<input type="text" formControlName="meta_keywords" class="form-control">
+			   </fieldset>
+			    <fieldset class="col-lg-12 no-padding">
+			   	<label>SEO Description</label>
+			   	<textarea formControlName="meta_description" class="form-control" rows="10">
+			   	</textarea>
+         </fieldset>
+<!--         <div class="col-lg-12 no-padding">-->
+<!--            <div class="card card-default mb-3">-->
+<!--                <div class="card-header">-->
+<!--                    publishing options <label></label>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <fieldset>-->
+<!--                        <ul class="list-inline product-chooser col-lg-12 no-padding pro_options">-->
+<!--                            <li class="product-chooser-item selected"><input type="radio" name="n"/> Publishing-->
+<!--                                options-->
+<!--                            </li>-->
+<!--                            <li class="product-chooser-item"><input type="radio" name="n"/>Scheduling</li>-->
+<!--                            <li class="product-chooser-item"><input type="radio" name="n"/> URL</li>-->
+<!--                        </ul>-->
+<!--                        <ul class="list-inline">-->
+<!--                            <li>-->
+<!--                                <label><input type="checkbox" formControlName="Published"/> Published</label></li>-->
+<!--                            <li>-->
+<!--                                <label><input type="checkbox" formControlName="saveDrafts"/> Save as draft</label>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </fieldset>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--            &lt;!&ndash; /.card &ndash;&gt;-->
+<!--        </div>-->
+ 	</div>
+
+ 	 <div class="col-lg-12 text-left" style="display: inline-block;margin-top: 20px;">
+        	 <button type="button" [disabled]="eventsForm.invalid" (click)="submitHandler()" class="btn btn-primary" style="margin-right: 10px;">Create</button>
+           <!-- <button type="button"  class="btn btn-secondary">Preview</button> -->
+        </div>
+ </form>

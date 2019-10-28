@@ -1,0 +1,52 @@
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tab-button li {
+  display: table-cell;
+  width: 20%;
+}
+#tab-button li a {
+  display: block;
+  padding: .5em;
+  background: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  font-weight:bold;
+  font-size:14px;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+      background: #000;
+    color: #fff;
+}
+.tab-contents {
+
+  border: 1px solid #ddd;
+}
+.tab-contents fieldset{    padding: 14px;
+    border-bottom: 1px solid #ccc;}
+h2 {
+  font-size: 18px;font-weight: bold;border-bottom: 1px solid #ccc;padding: 27px 10px;
+}
+table {
+  th {
+        font-size: 13px;
+    text-transform: uppercase;
+  }
+  td{font-size: 13px;}
+  button {
+    font-size: 13px;
+  }
+}
+.ng-select {font-size: 13px; font-weight: bold;color:#000}

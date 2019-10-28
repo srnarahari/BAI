@@ -1,0 +1,345 @@
+<div class="container microsite">
+  <div class="col-lg-12 pull-left no-padding">
+  	<div class="col-lg-8 no-padding pull-left">
+
+  		<h1>Michael Rosenfeld Gallery, LLC </h1>
+  		<nav>
+  			<ul class="list-inline">
+  				<li ><a [routerLink]="['/layout/microsite']" >Overview </a></li>
+  				<li><a [routerLink]="['/layout/microsite-events']"  >Events </a></li>
+  				<li><a [routerLink]="['/layout/microsite-artworks']" class="active" >Artworks </a></li>
+  			</ul>
+  		</nav>
+
+  	</div>
+  	<div class="col-lg-4 text-right pull-left">
+
+  		<a href="#">View Microsite <i class="fa fa-fw fa-external-link"></i></a><br/>
+  		<a href="#">Contact Client Services <i class="fa fa-fw fa-envelope-open"></i></a>
+  	</div>
+  </div>
+
+  <div class="col-lg-12 background_section pull-left">
+  	<h2>Add New Artwork </h2>
+    <form method="post" class="article_part_form" [formGroup]="articleFormartists">
+  	  <fieldset class="col-lg-6 pull-left">
+      <label>Assign Location Information<span class="asstrick">*</span></label>
+      <ng-select  [items]="entityLocation"
+           bindLabel="entityName"
+           formControlName="location"
+           [multiple]="true"
+           [hideSelected]="true"
+           [loading]="entityLocationloading"
+           [typeahead]="entityLocationinputs$"
+          >
+          </ng-select>
+      <!-- <input type="text" formControlName="location" [ngClass]="{
+                  'form-control': true,'is-invalid': location?.invalid && location?.touched,
+                  'is-valid': location?.valid}" />
+          <small id="fnHelp" *ngIf="location?.errors.required && location?.touched" class="form-text custom-invalid-feedback">Please fill the Location</small>
+         <small id="fnHelp" *ngIf="location?.errors.minlength && location?.touched" class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small> -->
+      </fieldset>
+       <fieldset class="col-lg-8 pull-left">
+            <label>Event Title<span class="asstrick">*</span></label>
+            <input type="text" formControlName="title" [ngClass]="{
+              'form-control': true,'is-invalid': title?.invalid && title?.touched,
+              'is-valid': title?.valid}" />
+              <small id="fnHelp" *ngIf="title?.errors.required && title?.touched" class="form-text custom-invalid-feedback">Please fill the titile</small>
+             <small id="fnHelp" *ngIf="title?.errors.minlength && title?.touched" class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+    </fieldset>
+    <fieldset class="col-lg-8 pull-left">
+      <label>Search & Assign Artist(s)</label>
+      <ng-select  [items]="artistdata | async"
+                   bindLabel="artistName"
+                   formControlName="field_artists"
+                   [multiple]="true"
+                   [hideSelected]="true"
+                   [loading]="artistsloading"
+                   placeholder="Search artists"
+                   [typeahead]="artistinputs$"
+                  >
+               </ng-select>
+               <span style="margin-top: 20px;">To associate an artist with your event, please use the search box below. Enter the last name of artist. Once the  <br/> name appears, select and click "Add Another item". You will know that the artist has been associated correctly once there is  a 6 or 7 digit number after the artist name. Such as "Andy Warhol [nid:124242]"</span>
+    </fieldset>
+     <fieldset class="col-lg-8 pull-left">
+            <label>Artwork Photo</label>
+            <input type="file"  class="form-control" (change)="getFileDetails($event)" />
+            <span>
+              Select an image to represent this artwork. The image should be 700x540 pixels to ensure the highest quality. File type <br/> accepted are png, gif or jpg. File should be no larger than 2MB
+            </span>
+          </fieldset>
+        <fieldset class="col-lg-8 pull-left"> 
+          <div class="col-lg-12 no-padding pull-left">
+            <div class="col-lg-8 no-padding pull-left">
+             <label>Measurement description</label>
+            <input type="text" formControlName="measurmentDescription" class="form-control" />
+          </div>
+          </div>
+          <div class="col-lg-12 no-padding pull-left">
+            <div class="col-lg-6 pull-left no-padding" style="width: 48%;margin-right: 12px;">
+              
+              <div class="col-lg-12 no-padding pull-left">
+                  <label>Height</label>
+                  <input type="text" formControlName="height" class="form-control" />
+                  <span>(Note where the artist was born)</span>
+              </div>
+              <div class="col-lg-12 no-padding pull-left">
+                  <label>Width</label>
+                  <input type="text" formControlName="width" class="form-control" />
+              </div>
+            </div>
+            <div class="col-lg-6 pull-left no-padding">
+              <div class="col-lg-12 no-padding pull-left">
+                 <label>Depth</label>
+                 <input type="text" formControlName="depth" class="form-control" />
+              </div>
+              <div class="col-lg-12 no-padding pull-left">
+                 <label>Units<span class="asstrick">*</span> </label>
+            <ng-select [items]="units_all" bindLabel="unitTypeLabel" bindValue="unitTypeLabel" placeholder="Please select units"
+              formControlName="units" [ngClass]="{
+                'form-control': true,'is-invalid': units?.touched,
+                'is-valid': tiunitstle?.valid}" >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="col-lg-12 no-padding pull-left">
+          <fieldset class="col-lg-6 no-padding pull-left" style="width: 48%;margin-right: 10px;">
+            <div class="col-lg-12 no-padding pull-left">
+              <label>Materials</label>
+              <input type="text" formControlName="material" class="form-control" />
+              <span>Specify the materials that we were used to make this work in this box.</span>
+            </div>
+            <div class="col-lg-12 no-padding pull-left">
+              <label>Edition</label>
+              <input type="text" formControlName="edition" class="form-control" />
+              <span style="margin-bottom: 40px;display: inline-block;">Specify the materials that we were used to make this work in this box.</span>
+            </div>
+          </fieldset>
+          <fieldset class="col-lg-6 no-padding pull-left">
+            <div class="col-lg-12 no-padding pull-left">
+              <div class="col-lg-9 no-padding pull-left">
+                <label>Specialities<span class="asstrick">*</span> </label>
+            <select class="" multiple="multiple" formControlName="specialties" id="edit-field-specialties-en" class="form-select form-control">
+              <option value="_none">- None -</option>
+              <option value="24635924">Boats</option>
+              <option value="24635860">Modern &amp; Post-War British Art</option>
+              <option value="24635859">Modern &amp; Contemporary Southeast Asian Art</option>
+              <option value="24635911">Mirrors</option>
+              <option value="24635857">Minitures</option>
+              <option value="24635858">Modern British &amp; Irish Art</option>
+              <option value="24635861">New Zealand</option>
+              <option value="24635913">Persian Carpets</option>
+              <option value="24635862">Orientalist Art</option>
+              <option value="24635880">Oceanic</option>
+              <option value="24635900">Mid-20th Centur</option>
+              <option value="24635873">20th Century</option>
+              <option value="24635855">Italian Paintings</option>
+              <option value="24635854">Indian, Himalayan and Southeast Asian Art</option>
+              <option value="24635853">Indian Art (Modern &amp; Contemporary)</option>
+              <option value="24635903">Home Furnishings</option>
+              <option value="24635884">Judaica</option>
+              <option value="24635888">Khmer and Southeast Asian Art</option>
+              <option value="24635856">Marine Paintings</option>
+              <option value="24635892">Maps</option>
+              <option value="24635906">Lighting</option>
+              <option value="24635915">Porcelain</option>
+              <option value="24635863">Portraits &amp; Nudes</option>
+              <option value="24635922">Watches</option>
+              <option value="24635872">Victorian, Pre-Raphaelite &amp; British Impressionist Art</option>
+              <option value="24635871">Turkish &amp; Middle Eastern (Modern &amp; Contemporary)</option>
+              <option value="24635870">Topographical Pictures</option>
+              <option value="24635917">Tapestry</option>
+              <option value="24635887">Roman Art</option>
+              <option value="24635877">Renaissance</option>
+              <option value="24635881">Pre-Colombian</option>
+              <option value="24634367">Post Modern</option>
+              <option value="24635865">Russian Paintings</option>
+              <option value="24635902">Scandinavian</option>
+              <option value="24635869">Spanish Paintings</option>
+              <option value="24635868">South African</option>
+              <option value="24635905">Silver</option>
+              <option value="24635885">Greek Art</option>
+              <option value="24635876">Medieval</option>
+              <option value="24635843">Australian Art</option>
+              <option value="24635842">Asian 20th Century &amp; Contemporary Art</option>
+              <option value="24635879">Asian</option>
+              <option value="24635899">Art Nouveau</option>
+              <option value="24635891">Autographs</option>
+              <option value="24635923">Autos</option>
+              <option value="24635918">Bronze</option>
+              <option value="24635844">British Paintings</option>
+              <option value="24635889">Books and Antiquarian</option>
+              <option value="24635909">Glass</option>
+              <option value="24635841">Arab, Iranian &amp; Turkish Art (Modern &amp; Contemporary)</option>
+              <option value="24635901">American Contemporary</option>
+              <option value="24635839">American Art</option>
+              <option value="24635838">African Paintings</option>
+              <option value="24635919">20th century carpets and rugs</option>
+              <option value="24635897">American Furniture, Decorative Art &amp; Folk Art</option>
+              <option value="24635840">American Indian Art</option>
+              <option value="24635894">Antiques</option>
+              <option value="24635875">Animalier Bronze</option>
+              <option value="24635882">Ancient Art</option>
+              <option value="24635845">Canadian</option>
+              <option value="24635898">Art Deco</option>
+              <option value="24635920">Candelabra and chandelier</option>
+              <option value="24635883">Egyptian, classical, Near-Eastern antiquities</option>
+              <option value="24635895">English</option>
+              <option value="24635908">Design Objects</option>
+              <option value="24635851">German, Austrian &amp; Central European Paintings</option>
+              <option value="24635893">Furniture</option>
+              <option value="24635896">European</option>
+              <option value="24635921">Fine Jewelry</option>
+              <option value="24635850">French Paintings</option>
+              <option value="24635907">Design Lighting</option>
+              <option value="24635848">Dutch &amp; Belgian Paintings</option>
+              <option value="24635904">Crystal</option>
+              <option value="24635916">Ceramics</option>
+              <option value="24635878">Classical</option>
+              <option value="24635847">Chinese Modern Paintings</option>
+              <option value="24635886">Chinese Art</option>
+              <option value="24635914">Chinese Carpets</option>
+              <option value="24635846">Chinese Classical Paintings</option>
+              <option value="24635890">Collectible Books &amp; Manuscripts</option>
+              <option value="24635912">Clocks</option>
+              <option value="24634366">Pop Art</option>
+              <option value="24634365">Photorealist</option>
+              <option value="24634368">Post-War</option>
+              <option value="6783">Prints &amp; Multiples&nbsp;</option>
+              <option value="24586663">Russian Art</option>
+              <option value="24634378">Rental</option>
+              <option value="24634767">Real Estate</option>
+              <option value="6781">Photography</option>
+              <option value="6776">Modern Art</option>
+              <option value="6799">Native &amp; Tribal Arts</option>
+              <option value="6790">Old Masters</option>
+              <option value="24634369">Scandinavian Modern</option>
+              <option value="24634769">Yachts</option>
+              <option value="24634768">Vintage cars</option>
+              <option value="24634375">Vintage</option>
+              <option value="24634374">Victorian</option>
+              <option value="6744">Urban Art</option>
+              <option value="24634370">Spanish</option>
+              <option value="24586664">Sculpture</option>
+              <option value="24634371">Street Art</option>
+              <option value="24634372">Surrealist</option>
+              <option value="24634362">Modern</option>
+              <option value="24634376">Classic</option>
+              <option value="24634645">Chinese</option>
+              <option value="6752">Contemporary Art</option>
+              <option value="24634352">Cubist</option>
+              <option value="24586661">Drawings &amp; Works on Paper&nbsp;</option>
+              <option value="6735">Design</option>
+              <option value="6748">Decorative Art &amp; Antiques</option>
+              <option value="24586660">Artist's Books</option>
+              <option value="6746">Asian &amp; Islamic Art&nbsp;</option>
+              <option value="6791">Early American Art</option>
+              <option value="24634358">Italian Design</option>
+              <option value="24634357">Italian</option>
+              <option value="6772">Latin American Art</option>
+              <option value="24634359">Louis XVI</option>
+              <option value="24634361">Minimalist</option>
+              <option value="24634360">Mid-century modern</option>
+              <option value="24634356">Impressionist</option>
+              <option value="6764">Folk, Naïve, &amp; Outsider Art</option>
+              <option value="24634353">Expressionist</option>
+              <option value="24586662">Emerging Artists&nbsp;</option>
+              <option value="24634377">For Sale</option>
+              <option value="24634354">French and Continental</option>
+              <option value="24634355">Georgian</option>
+              <option value="6729">19th C European Art</option>
+            </select>
+            <span >Tag Specialty, Medium and Subject using the drop downs </span>
+              </div>
+            </div>
+            <div class="col-lg-12 no-padding pull-left">
+              <div class="col-lg-6 no-padding pull-left" style="width: 48%;margin-right: 9px">
+                 <label>Medium <span class="asstrick">*</span> </label>
+                  <ng-select [items]="mediumCategory_all" bindLabel="mediumType" bindValue="mediumType" placeholder="Please select Medium"
+                    formControlName="mediumCategory" [ngClass]="{
+                      'form-control': true,'is-invalid': mediumCategory?.touched,
+                      'is-valid': mediumCategory?.valid}" >
+                  </ng-select>
+              </div>
+              <div class="col-lg-6 no-padding pull-left">
+                <label>Subject</label>
+                 <ng-select [items]="subject_all" bindLabel="subjectType" bindValue="subjectType" placeholder="Please select Subject"
+              formControlName="subject">
+            </ng-select>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-lg-12 no-padding pull-left">
+          <fieldset class="col-lg-6 no-padding pull-left" style="width: 48%;margin-right:9px ">
+            <div class="col-lg-12 no-padding pull-left" >
+              <div class=""style="width: 50%"> 
+              <label>Circa</label>
+              <select formControlName="circa" class="form-control">
+                <option>None</option>
+              </select>
+            </div>
+            </div> 
+            <div class="col-lg-12 no-padding pull-left" >
+              <div class="form-group" style="width: 50%">
+                <label>Start date</label>
+                <ng-datepicker formControlName="start_date" [options]="options"></ng-datepicker>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="col-lg-6 no-padding pull-left">
+            <div class="col-lg-6 no-padding pull-left" style="width: 48%;margin-right: 9px;">
+              <div class="col-lg-12 no-padding pull-left">
+               <label>Status <span class="asstrick">*</span></label>
+                <ng-select [items]="status_all" bindLabel="statusType" bindValue="statusType" placeholder="Please select Satus"
+                  formControlName="status">
+                </ng-select>
+              </div>
+              <div class="col-lg-12 no-padding pull-left">
+                 <label style="margin-top: 14px;">Price from</label>
+                 <input type="text" formControlName="priceFrom" class="form-control" />
+              </div>
+            </div>
+            <div class="col-lg-6 no-padding pull-left">
+               <div class="col-lg-12 no-padding pull-left">
+                <label>Currency <span class="asstrick">*</span> </label>
+                  <ng-select [items]="currency_all" bindLabel="currencyType" bindValue="currencyType" placeholder="Please select Currency"
+                    formControlName="currency" [ngClass]="{
+                      'form-control': true,'is-invalid':currency?.touched,
+                      'is-valid': currency?.valid}" >
+                  </ng-select>
+               </div>
+               <div class="col-lg-12 no-padding pull-left">
+                  <label style="margin-top: 14px;">Price to</label>
+                  <input type="text" formControlName="priceTo" class="form-control" />
+               </div>
+
+            </div>
+
+          </fieldset>
+
+        </div>
+         <div class="col-lg-12 no-padding pull-left">
+          <div class="col-lg-8 no-padding pull-left">
+            <label>Description <span class="asstrick">*</span></label>
+            <ckeditor [editor]="ClassicEditorBuild" formControlName="extraDescription" ></ckeditor>
+            
+          </div>
+          </div>
+          <fieldset class="col-lg-4 no-padding pull-left" style="margin-top: 20px;">
+            <label class="col-lg-12 no-padding pull-left">Publising Options</label>
+            <label>
+               <input type="checkbox" formControlName="published" class="checked_1"  value="Published,"> Published
+               </label>
+          </fieldset>
+           <div class="col-lg-12 text-left pull-left no-padding" style="margin-bottom: 30px;">
+    <button type="button" [disabled]="articleFormartists.invalid" (click)="submitHandler()" class="btn btn-primary" style="padding: 6px 30px;">Save</button>
+
+  </div>
+      </form>
+  </div>
+
+
+</div>

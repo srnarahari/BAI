@@ -1,0 +1,88 @@
+<div  class="article_part_form col-lg-12">
+	 <div class="col-lg-12 no-padding">
+      <div class="card card-default">
+        <div class="card-header">
+           Administration
+        </div>
+       <div class="card-body">
+         <div class="col-lg-12 no-padding row">
+           <div class="col-lg-4 pull-left">
+              <label class="col-xs-12 label-control">Sort by name or email id</label>
+              <select class="form-control input-sm" [(ngModel)]="sortBy">
+                  <option ngValue="">Sort by name or email id</option>
+                  <option ngValue="firstName">First name</option>
+                  <option ngValue="userName">Email</option>
+
+              </select>
+           </div>
+           <div class="col-lg-4 pull-left">
+              <label class="col-xs-12 label-control">Sort by order</label>
+              <select class="form-control input-sm" [(ngModel)]="sortOrder">
+                  <option ngValue="1">Ascending</option>
+                  <option ngValue="-1">Descending</option>
+                  <option ngValue="badValue">Bad value</option>
+              </select>
+          </div>
+          <div class="col-lg-4 pull-left search_icon">
+             <label class="label-control">Search by Email id</label>
+             <input type="text" [(ngModel)]="filterQuery" placeholder="Search by Email id" class="form-control" />
+       <!--  <img class="user-avatar" src="assets/images/logo.png" width="150px" /> -->
+          </div>
+          <div class="col-lg-4 pull-left search_icon">
+             <label class="label-control"></label>
+            <a [routerLink]="['/layout/add-user']" class="btn btn-link">Add User</a>
+       <!--  <img class="user-avatar" src="assets/images/logo.png" width="150px" /> -->
+          </div>
+
+        </div>
+        <form [formGroup]="user_activate">
+        <table class="table table-hover table-striped" [mfData]="data | dataFilter : filterQuery : userName" #mf="mfDataTable" [mfRowsOnPage]="5"  [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th>Activate user</th>
+              <th scope="col"><mfDefaultSorter by="firstName">User name</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="userName">Email</mfDefaultSorter></th>
+              <th scope="col">Role</th>
+              <th scope="col">Approve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data">
+               <td>
+                <input type="checkbox" required="true" formControlName="active"/>
+                <input type="hidden" formControlName="userId" value="{{item._id}}" placeholder="">
+              </td>
+               <td>{{item.profile.firstName}} {{item.profile.lastName}}</td>
+               <td>{{item.userName}}</td>
+		           <td width="200px">
+			         <ng-select [items]="role_all"
+                     bindLabel="role"
+                     bindValue="role"
+                     placeholder="Please select role"
+                      formControlName="userRole"
+                     [multiple]="true"
+                     [hideSelected]="true"
+                      [required]="true"
+                >
+                </ng-select>
+              </td>
+              <td>
+                <button class="btn btn-primary"  type="submit" (click)="onSelect(item)">Activate </button>
+              </td>
+
+            </tr>
+  </tbody>
+ <tfoot>
+    <tr>
+        <td colspan="5" valign="text-right">
+            <mfBootstrapPaginator style="float:right;"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+  </form>
+</div>
+</div>
+</div>
+
+</div>

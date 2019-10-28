@@ -1,0 +1,613 @@
+<form method="post" class="article_part_form" [formGroup]="articleFormartists">
+    <div class="col-lg-8 pull-left">
+        <div class="card card-default mb-3">
+            <div class="card-header">
+                CREATE ARTIST
+            </div>
+            <div class="card-body row">
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Artist Name (enter artist's full name)<span class="asstrick">*</span></label>
+                        <input type="text" formControlName="artistName"
+                               [ngClass]="{'form-control': true,'is-invalid': artistName.invalid && artistName.touched,'is-valid': artistName.valid}"
+                               class="form-control"/>
+                        <small *ngIf="artistName.errors?.required && artistName.touched"
+                               class="form-text custom-invalid-feedback">Please fill the artist name
+                        </small>
+                        <small *ngIf="artistName.errors?.minlength && artistName.touched"
+                               class="form-text custom-invalid-feedback">Value must contain atleast 5 characters
+                        </small>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>First Name<span class="asstrick">*</span></label>
+                        <input type="text" formControlName="fname" class="form-control"/>
+
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Last Name<span class="asstrick">*</span></label>
+                        <input type="text" formControlName="lname" class="form-control"/>
+
+                    </fieldset>
+                    <!-- <fieldset>
+                        <label>Last name<span class="asstrick">*</span></label>
+                         <input type="text" formControlName="lname" [ngClass]="{'form-control': true,'is-invalid': lname.invalid && lname.touched,'is-valid': lname.valid}" class="form-control"/>
+                         <small *ngIf="lname.errors?.required && lname.touched" class="form-text custom-invalid-feedback">Please fill the artist name</small>
+                         <small *ngIf="lname.errors?.minlength && lname.touched" class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+                      </fieldset> -->
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Also Known As</label>
+                        <input type="text" formControlName="knownas" class="form-control"/>
+
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Artist Headshot Photo (Size 480x360)</label>
+                        <img [src]='uploadedFile' alt="Forest" style="width:150px" *ngIf="uploadedFile">
+                        <input type="file" formControlName="photo" class="form-control"
+                               (change)="getFileDetails($event)"/>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Photo credit</label>
+                        <input type="text" formControlName="photo_credit" class="form-control"/>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Nationality</label>
+                        <input type="text" formControlName="nationality" class="form-control"/>
+
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Country of Residence</label>
+                        <select class="" id="edit-field-country-en" formControlName="field_country"
+                                class="form-select form-control">
+                            <option value="_none">- None -</option>
+                            <option value=""></option>
+                            <option value="None">None</option>
+                            <option value="AF">Afghanistan</option>
+                            <option value="AL">Albania</option>
+                            <option value="DZ">Algeria</option>
+                            <option value="AS">American Samoa</option>
+                            <option value="AD">Andorra</option>
+                            <option value="AO">Angola</option>
+                            <option value="AI">Anguilla</option>
+                            <option value="AQ">Antarctica</option>
+                            <option value="AG">Antigua and Barbuda</option>
+                            <option value="AR">Argentina</option>
+                            <option value="AM">Armenia</option>
+                            <option value="AW">Aruba</option>
+                            <option value="AU">Australia</option>
+                            <option value="AT">Austria</option>
+                            <option value="AZ">Azerbaijan</option>
+                            <option value="BS">Bahamas</option>
+                            <option value="BH">Bahrain</option>
+                            <option value="BD">Bangladesh</option>
+                            <option value="BB">Barbados</option>
+                            <option value="BY">Belarus</option>
+                            <option value="BE">Belgium</option>
+                            <option value="BZ">Belize</option>
+                            <option value="BJ">Benin</option>
+                            <option value="BM">Bermuda</option>
+                            <option value="BT">Bhutan</option>
+                            <option value="BO">Bolivia</option>
+                            <option value="BA">Bosnia and Herzegovina</option>
+                            <option value="BW">Botswana</option>
+                            <option value="BV">Bouvet Island</option>
+                            <option value="BR">Brazil</option>
+                            <option value="IO">British Indian Ocean Territory</option>
+                            <option value="BN">Brunei Darussalam</option>
+                            <option value="BG">Bulgaria</option>
+                            <option value="BF">Burkina Faso</option>
+                            <option value="BI">Burundi</option>
+                            <option value="KH">Cambodia</option>
+                            <option value="CM">Cameroon</option>
+                            <option value="CA">Canada</option>
+                            <option value="CV">Cape Verde</option>
+                            <option value="KY">Cayman Islands</option>
+                            <option value="CF">Central African Republic</option>
+                            <option value="TD">Chad</option>
+                            <option value="CL">Chile</option>
+                            <option value="CN">China</option>
+                            <option value="CX">Christmas Island</option>
+                            <option value="CC">Cocos (Keeling) Islands</option>
+                            <option value="CO">Colombia</option>
+                            <option value="KM">Comoros</option>
+                            <option value="CG">Congo, Republic of</option>
+                            <option value="CD">Congo, the Democratic Republic of the</option>
+                            <option value="CK">Cook Islands</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="HR">Croatia</option>
+                            <option value="CU">Cuba</option>
+                            <option value="CY">Cyprus</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="CI">Côte D'Ivoire</option>
+                            <option value="DK">Denmark</option>
+                            <option value="DJ">Djibouti</option>
+                            <option value="DM">Dominica</option>
+                            <option value="DO">Dominican Republic</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="EG">Egypt</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="GQ">Equatorial Guinea</option>
+                            <option value="ER">Eritrea</option>
+                            <option value="EE">Estonia</option>
+                            <option value="ET">Ethiopia</option>
+                            <option value="FO">Faeroe Islands</option>
+                            <option value="FK">Falkland Islands</option>
+                            <option value="FJ">Fiji</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="GF">French Guiana</option>
+                            <option value="PF">French Polynesia</option>
+                            <option value="TF">French Southern Territories</option>
+                            <option value="GA">Gabon</option>
+                            <option value="GM">Gambia, the</option>
+                            <option value="GE">Georgia</option>
+                            <option value="DE">Germany</option>
+                            <option value="GH">Ghana</option>
+                            <option value="GI">Gibraltar</option>
+                            <option value="GR">Greece</option>
+                            <option value="GL">Greenland</option>
+                            <option value="GD">Grenada</option>
+                            <option value="GP">Guadeloupe</option>
+                            <option value="GU">Guam</option>
+                            <option value="GT">Guatemala</option>
+                            <option value="GG">Guernsey</option>
+                            <option value="GN">Guinea</option>
+                            <option value="GW">Guinea-Bissau</option>
+                            <option value="GY">Guyana</option>
+                            <option value="HT">Haiti</option>
+                            <option value="HM">Heard Island and Mcdonald Islands</option>
+                            <option value="HN">Honduras</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="HU">Hungary</option>
+                            <option value="IS">Iceland</option>
+                            <option value="IN">India</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="IR">Iran</option>
+                            <option value="IQ">Iraq</option>
+                            <option value="IE">Ireland</option>
+                            <option value="IM">Isle of Man</option>
+                            <option value="IL">Israel</option>
+                            <option value="IT">Italy</option>
+                            <option value="JM">Jamaica</option>
+                            <option value="JP">Japan</option>
+                            <option value="JE">Jersey</option>
+                            <option value="JO">Jordan</option>
+                            <option value="KZ">Kazakhstan</option>
+                            <option value="KE">Kenya</option>
+                            <option value="KI">Kiribati</option>
+                            <option value="KO">Korea</option>
+                            <option value="KW">Kuwait</option>
+                            <option value="KG">Kyrgyzstan</option>
+                            <option value="LA">Lao People's Democratic Republic</option>
+                            <option value="LV">Latvia</option>
+                            <option value="LB">Lebanon</option>
+                            <option value="LS">Lesotho</option>
+                            <option value="LR">Liberia</option>
+                            <option value="LY">Libya</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="LT">Lithuania</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="MO">Macao</option>
+                            <option value="MK">Macedonia</option>
+                            <option value="MG">Madagascar</option>
+                            <option value="MW">Malawi</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="MV">Maldives</option>
+                            <option value="ML">Mali</option>
+                            <option value="MT">Malta</option>
+                            <option value="MH">Marshall Islands</option>
+                            <option value="MQ">Martinique</option>
+                            <option value="MR">Mauritania</option>
+                            <option value="MU">Mauritius</option>
+                            <option value="YT">Mayotte</option>
+                            <option value="MX">Mexico</option>
+                            <option value="FM">Micronesia</option>
+                            <option value="MD">Moldova</option>
+                            <option value="MC">Monaco</option>
+                            <option value="MN">Mongolia</option>
+                            <option value="ME">Montenegro</option>
+                            <option value="MS">Montserrat</option>
+                            <option value="MA">Morocco</option>
+                            <option value="MZ">Mozambique</option>
+                            <option value="MM">Myanmar</option>
+                            <option value="NA">Namibia</option>
+                            <option value="NR">Nauru</option>
+                            <option value="NP">Nepal</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="AN">Netherlands Antilles</option>
+                            <option value="NC">New Caledonia</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="NI">Nicaragua</option>
+                            <option value="NE">Niger</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="NU">Niue</option>
+                            <option value="NF">Norfolk Island</option>
+                            <option value="KP">North Korea</option>
+                            <option value="MP">Northern Mariana Islands</option>
+                            <option value="NO">Norway</option>
+                            <option value="OM">Oman</option>
+                            <option value="PK">Pakistan</option>
+                            <option value="PW">Palau</option>
+                            <option value="PS">Palestinian Territories</option>
+                            <option value="PA">Panama</option>
+                            <option value="PG">Papua New Guinea</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Peru</option>
+                            <option value="PH">Philippines</option>
+                            <option value="PN">Pitcairn</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="QA">Qatar</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russian Federation</option>
+                            <option value="RW">Rwanda</option>
+                            <option value="RE">Réunion</option>
+                            <option value="SH">Saint Helena</option>
+                            <option value="KN">Saint Kitts and Nevis</option>
+                            <option value="LC">Saint Lucia</option>
+                            <option value="PM">Saint Pierre and Miquelon</option>
+                            <option value="VC">Saint Vincent and the Grenadines</option>
+                            <option value="WS">Samoa</option>
+                            <option value="SM">San Marino</option>
+                            <option value="ST">Sao Tome and Principe</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="SN">Senegal</option>
+                            <option value="RS">Serbia</option>
+                            <option value="SC">Seychelles</option>
+                            <option value="SL">Sierra Leone</option>
+                            <option value="SG">Singapore</option>
+                            <option value="SK">Slovakia</option>
+                            <option value="SI">Slovenia</option>
+                            <option value="SB">Solomon Islands</option>
+                            <option value="SO">Somalia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="GS">South Georgia and the South Sandwich Islands</option>
+                            <option value="KR">South Korea</option>
+                            <option value="ES">Spain</option>
+                            <option value="LK">Sri Lanka</option>
+                            <option value="SD">Sudan</option>
+                            <option value="SR">Suriname</option>
+                            <option value="SJ">Svalbard and Jan Mayen</option>
+                            <option value="SZ">Swaziland</option>
+                            <option value="SE">Sweden</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="SY">Syrian Arab Republic</option>
+                            <option value="TW">Taiwan</option>
+                            <option value="TJ">Tajikistan</option>
+                            <option value="TZ">Tanzania</option>
+                            <option value="TH">Thailand</option>
+                            <option value="TL">Timor-Leste</option>
+                            <option value="TG">Togo</option>
+                            <option value="TK">Tokelau</option>
+                            <option value="TO">Tonga</option>
+                            <option value="TT">Trinidad and Tobago</option>
+                            <option value="TN">Tunisia</option>
+                            <option value="TR">Turkey</option>
+                            <option value="TM">Turkmenistan</option>
+                            <option value="TC">Turks and Caicos Islands</option>
+                            <option value="TV">Tuvalu</option>
+                            <option value="UG">Uganda</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="US">United States</option>
+                            <option value="UM">United States Minor Outlying Islands</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="UZ">Uzbekistan</option>
+                            <option value="VU">Vanuatu</option>
+                            <option value="VA">Vatican City</option>
+                            <option value="VE">Venezuela</option>
+                            <option value="VN">Viet Nam</option>
+                            <option value="VG">Virgin Islands, British</option>
+                            <option value="VI">Virgin Islands, U.S.</option>
+                            <option value="WF">Wallis and Futuna</option>
+                            <option value="EH">Western Sahara</option>
+                            <option value="YE">Yemen</option>
+                            <option value="ZM">Zambia</option>
+                            <option value="ZW">Zimbabwe</option>
+                            <option value="AX">Åland Islands</option>
+                        </select>
+                    </fieldset>
+
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Specialities</label>
+                        <select class="" multiple="multiple" formControlName="field_specialties"
+                                id="edit-field-specialties-en" class="form-select form-control">
+                            <option value="_none">- None -</option>
+                            <option value="24635924">Boats</option>
+                            <option value="24635860">Modern &amp; Post-War British Art</option>
+                            <option value="24635859">Modern &amp; Contemporary Southeast Asian Art</option>
+                            <option value="24635911">Mirrors</option>
+                            <option value="24635857">Minitures</option>
+                            <option value="24635858">Modern British &amp; Irish Art</option>
+                            <option value="24635861">New Zealand</option>
+                            <option value="24635913">Persian Carpets</option>
+                            <option value="24635862">Orientalist Art</option>
+                            <option value="24635880">Oceanic</option>
+                            <option value="24635900">Mid-20th Century</option>
+                            <option value="24635873">20th Century</option>
+                            <option value="24635855">Italian Paintings</option>
+                            <option value="24635854">Indian, Himalayan and Southeast Asian Art</option>
+                            <option value="24635853">Indian Art (Modern &amp; Contemporary)</option>
+                            <option value="24635903">Home Furnishings</option>
+                            <option value="24635884">Judaica</option>
+                            <option value="24635888">Khmer and Southeast Asian Art</option>
+                            <option value="24635856">Marine Paintings</option>
+                            <option value="24635892">Maps</option>
+                            <option value="24635906">Lighting</option>
+                            <option value="24635915">Porcelain</option>
+                            <option value="24635863">Portraits &amp; Nudes</option>
+                            <option value="24635922">Watches</option>
+                            <option value="24635872">Victorian, Pre-Raphaelite &amp; British Impressionist Art</option>
+                            <option value="24635871">Turkish &amp; Middle Eastern (Modern &amp; Contemporary)</option>
+                            <option value="24635870">Topographical Pictures</option>
+                            <option value="24635917">Tapestry</option>
+                            <option value="24635887">Roman Art</option>
+                            <option value="24635877">Renaissance</option>
+                            <option value="24635881">Pre-Colombian</option>
+                            <option value="24634367">Post Modern</option>
+                            <option value="24635865">Russian Paintings</option>
+                            <option value="24635902">Scandinavian</option>
+                            <option value="24635869">Spanish Paintings</option>
+                            <option value="24635868">South African</option>
+                            <option value="24635905">Silver</option>
+                            <option value="24635885">Greek Art</option>
+                            <option value="24635876">Medieval</option>
+                            <option value="24635843">Australian Art</option>
+                            <option value="24635842">Asian 20th Century &amp; Contemporary Art</option>
+                            <option value="24635879">Asian</option>
+                            <option value="24635899">Art Nouveau</option>
+                            <option value="24635891">Autographs</option>
+                            <option value="24635923">Autos</option>
+                            <option value="24635918">Bronze</option>
+                            <option value="24635844">British Paintings</option>
+                            <option value="24635889">Books and Antiquarian</option>
+                            <option value="24635909">Glass</option>
+                            <option value="24635841">Arab, Iranian &amp; Turkish Art (Modern &amp; Contemporary)
+                            </option>
+                            <option value="24635901">American Contemporary</option>
+                            <option value="24635839">American Art</option>
+                            <option value="24635838">African Paintings</option>
+                            <option value="24635919">20th century carpets and rugs</option>
+                            <option value="24635897">American Furniture, Decorative Art &amp; Folk Art</option>
+                            <option value="24635840">American Indian Art</option>
+                            <option value="24635894">Antiques</option>
+                            <option value="24635875">Animalier Bronze</option>
+                            <option value="24635882">Ancient Art</option>
+                            <option value="24635845">Canadian</option>
+                            <option value="24635898">Art Deco</option>
+                            <option value="24635920">Candelabra and chandelier</option>
+                            <option value="24635883">Egyptian, classical, Near-Eastern antiquities</option>
+                            <option value="24635895">English</option>
+                            <option value="24635908">Design Objects</option>
+                            <option value="24635851">German, Austrian &amp; Central European Paintings</option>
+                            <option value="24635893">Furniture</option>
+                            <option value="24635896">European</option>
+                            <option value="24635921">Fine Jewelry</option>
+                            <option value="24635850">French Paintings</option>
+                            <option value="24635907">Design Lighting</option>
+                            <option value="24635848">Dutch &amp; Belgian Paintings</option>
+                            <option value="24635904">Crystal</option>
+                            <option value="24635916">Ceramics</option>
+                            <option value="24635878">Classical</option>
+                            <option value="24635847">Chinese Modern Paintings</option>
+                            <option value="24635886">Chinese Art</option>
+                            <option value="24635914">Chinese Carpets</option>
+                            <option value="24635846">Chinese Classical Paintings</option>
+                            <option value="24635890">Collectible Books &amp; Manuscripts</option>
+                            <option value="24635912">Clocks</option>
+                            <option value="24634366">Pop Art</option>
+                            <option value="24634365">Photorealist</option>
+                            <option value="24634368">Post-War</option>
+                            <option value="6783">Prints &amp; Multiples&nbsp;</option>
+                            <option value="24586663">Russian Art</option>
+                            <option value="24634378">Rental</option>
+                            <option value="24634767">Real Estate</option>
+                            <option value="6781">Photography</option>
+                            <option value="6776">Modern Art</option>
+                            <option value="6799">Native &amp; Tribal Arts</option>
+                            <option value="6790">Old Masters</option>
+                            <option value="24634369">Scandinavian Modern</option>
+                            <option value="24634769">Yachts</option>
+                            <option value="24634768">Vintage cars</option>
+                            <option value="24634375">Vintage</option>
+                            <option value="24634374">Victorian</option>
+                            <option value="6744">Urban Art</option>
+                            <option value="24634370">Spanish</option>
+                            <option value="24586664">Sculpture</option>
+                            <option value="24634371">Street Art</option>
+                            <option value="24634372">Surrealist</option>
+                            <option value="24634362">Modern</option>
+                            <option value="24634376">Classic</option>
+                            <option value="24634645">Chinese</option>
+                            <option value="6752">Contemporary Art</option>
+                            <option value="24634352">Cubist</option>
+                            <option value="24586661">Drawings &amp; Works on Paper&nbsp;</option>
+                            <option value="6735">Design</option>
+                            <option value="6748">Decorative Art &amp; Antiques</option>
+                            <option value="24586660">Artist's Books</option>
+                            <option value="6746">Asian &amp; Islamic Art&nbsp;</option>
+                            <option value="6791">Early American Art</option>
+                            <option value="24634358">Italian Design</option>
+                            <option value="24634357">Italian</option>
+                            <option value="6772">Latin American Art</option>
+                            <option value="24634359">Louis XVI</option>
+                            <option value="24634361">Minimalist</option>
+                            <option value="24634360">Mid-century modern</option>
+                            <option value="24634356">Impressionist</option>
+                            <option value="6764">Folk, Naïve, &amp; Outsider Art</option>
+                            <option value="24634353">Expressionist</option>
+                            <option value="24586662">Emerging Artists&nbsp;</option>
+                            <option value="24634377">For Sale</option>
+                            <option value="24634354">French and Continental</option>
+                            <option value="24634355">Georgian</option>
+                            <option value="6729">19th C European Art</option>
+                        </select>
+
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <button class="accordion active">Lifespan</button>
+                    <div class="panel" style="max-height: 713px;">
+                        <div class="lifespan_acco">
+                            <label><input type="checkbox" name="" class="show_date" formControlName="show_date"> Show
+                                End Date</label>
+                            <div class="col-lg-12 no-padding">
+                                <input type="text" class="form-control" formControlName="fomat_date">
+
+                            </div>
+                            <div class="col-lg-12 no-padding formate_date" style="display:none;">
+                                <h2>to:</h2>
+                                <input type="text" class="form-control" formControlName="tofomat_date">
+
+                            </div>
+                        </div>
+                        <fieldset>
+                            <label>Birth Year Qualifier</label>
+                            <select id="edit-field-birth-year-qualifier-und"
+                                    formControlName="field_birth_year_qualifier" class="form-select form-control">
+                                <option value="_none">- None -</option>
+                                <option value=""></option>
+                                <option value="before">before</option>
+                                <option value="circa">circa</option>
+                                <option value="after">after</option>
+                            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label>Death Year Qualifier</label>
+                            <select id="edit-field-death-year-quallifier-und"
+                                    formControlName="field_death_year_quallifier" class="form-select form-control">
+                                <option value="_none">- None -</option>
+                                <option value=""></option>
+                                <option value="before">before</option>
+                                <option value="circa">circa</option>
+                                <option value="after">after</option>
+                            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label>Place of Birth</label>
+                            <input type="text" name="" class="form-control" formControlName="place_of_birth"/>
+                        </fieldset>
+                        <fieldset>
+                            <label>Place of Death</label>
+                            <input type="text" name="" class="form-control" formControlName="place_of_death"/>
+                        </fieldset>
+                        <fieldset>
+                            <label>Date description</label>
+                            <textarea class="form-control" rows="5" formControlName="date_description"></textarea>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Artist Biography</label>
+                        <ckeditor [editor]="ClassicEditorBuild" formControlName="articleDescription"></ckeditor>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Artist Statement </label>
+                        <ckeditor [editor]="ClassicEditorBuild" formControlName="artist_statement"></ckeditor>
+                    </fieldset>
+                </div>
+<!--                <div class=" mt-2 col-lg-12 no-padding">-->
+<!--                    <div class="card card-default mb-3">-->
+<!--                        <div class="card-header">-->
+<!--                            publishing options <label></label>-->
+<!--                        </div>-->
+<!--                        <div class="card-body">-->
+<!--                            <fieldset>-->
+<!--                                <ul class="list-inline product-chooser col-lg-12 no-padding pro_options">-->
+<!--                                    <li class="product-chooser-item" [ngClass]="{'selected':publishOption == 1}"-->
+<!--                                        (click)="publishOption = 1"><input type="radio" name="n"/> Publishing options-->
+<!--                                    </li>-->
+<!--                                    <li class="product-chooser-item" [ngClass]="{'selected':publishOption == 2}"-->
+<!--                                        (click)="publishOption = 2"><input type="radio" name="n"/>Scheduling-->
+<!--                                    </li>-->
+<!--                                    <li class="product-chooser-item" [ngClass]="{'selected':publishOption == 3}"-->
+<!--                                        (click)="publishOption = 3"><input type="radio" name="n"/> URL-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <ul class="list-inline">-->
+<!--                                    <li>-->
+<!--                                        <label><input type="checkbox" formControlName="Published"/> Published</label>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <label><input type="checkbox" formControlName="saveDrafts"/> Save as-->
+<!--                                            draft</label></li>-->
+<!--                                </ul>-->
+<!--                            </fieldset>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; /.card &ndash;&gt;-->
+<!--                </div>-->
+            </div>
+        </div>
+
+        <!-- /.card -->
+    </div>
+    <div class="col-lg-4 no-padding pull-left">
+        <div class="card card-default mb-3">
+            <div class="card-header">
+                Seo keywords
+            </div>
+            <div class="card-body row">
+
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+
+                        <label>SEO Keywords</label>
+                        <input type="text" formControlName="seo_keywords" class="form-control"/>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>SEO Description</label>
+                        <textarea class="form-control" rows="5" formControlName="seo_description"></textarea>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>SEO Title</label>
+                        <textarea class="form-control" rows="5" formControlName="seo_title"></textarea>
+                    </fieldset>
+                </div>
+
+                <!-- <div class="col-lg-12">
+                  <agm-map [latitude]="lat" [longitude]="lng">
+<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+                </div> -->
+
+            </div>
+
+        </div>
+
+        <!-- /.card -->
+    </div>
+    <div class="col-lg-12 text-left pull-left">
+        <button type="button" [disabled]="articleFormartists.invalid" (click)="submitHandler()" class="btn btn-primary">
+            Create
+        </button>
+
+    </div>
+</form>

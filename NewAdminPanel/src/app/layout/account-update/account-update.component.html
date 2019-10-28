@@ -1,0 +1,83 @@
+
+<div class="col-lg-12 padd_right">
+  <div class="validation_message">Please fill all red asstrick field. It is required for submit form </div><h4>Profile / Settings:</h4></div>
+ <form method="post" class="article_part_form" [formGroup]="accountupdateForm">
+  <div class="col-lg-12 no-padding">
+        
+         <div class="col-lg-6 no-padding pull-left">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                    Account Summary
+                </div>
+                <div class="card-body row">
+                  <div class="col-lg-12 pull-left">
+                     <fieldset>
+                      <label>Username</label>
+                      <input  type="text" formControlName="userName" [ngClass]="{'form-control': true,'is-invalid': userName.invalid && userName.touched,'is-valid': userName.valid}" class="form-control"/>
+                      <span>Spaces are allowed; punctuation is not allowed except for periods, hyphens, apostrophes, and underscores.</span>
+                       <small *ngIf="userName.errors?.required && userName.touched" class="form-text custom-invalid-feedback">Please fill the userName's</small>
+                       <small *ngIf="userName.errors?.minlength && userName.touched"  class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                       <fieldset>
+                        <label>Email Id<span class="asstrick">*</span></label>
+                         <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                         <span>A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.</span>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                       </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                       <fieldset>
+                        <label>Current Password<span class="asstrick">*</span></label>
+                         <input  type="password" formControlName="currentPassword" [ngClass]="{'form-control': true,'is-invalid': currentPassword.invalid && currentPassword.touched,'is-valid': currentPassword.valid}" class="form-control"/>
+                         <span>Enter your current currentPassword to change the E-mail address or currentPassword.<a href="#"> Request new currentPassword.</a></span>
+                         <small id="fnHelp" *ngIf="currentPassword.errors?.required && currentPassword.touched" class="form-text custom-invalid-feedback">Please fill the author title</small>
+                         <small id="fnHelp" *ngIf="currentPassword.errors?.minlength && currentPassword.touched" class="form-text custom-invalid-feedback">currentPassword must contain atleast 5 characters</small>
+                        </fieldset>
+                      </div>
+                  <div class="col-lg-12 pull-left">
+                       <fieldset>
+                        <label>Password<span class="asstrick">*</span></label>
+                         <input  type="password" formControlName="passwd" [ngClass]="{'form-control': true,'is-invalid': passwd.invalid && passwd.touched,'is-valid': passwd.valid}" class="form-control"/>
+                        <!--  <input _ngcontent-c0="" aria-describedby="passwdHelpBlock" autocomplete="current-passwd" class="form-control ng-dirty ng-valid ng-touched" formcontrolname="passwd" id="inputpasswd" placeholder="passwd" type="passwd"> -->
+                         <!-- <passwd-strength-meter [passwd]="passwd"></passwd-strength-meter> -->
+                         <small id="fnHelp" *ngIf="passwd.errors?.required && passwd.touched" class="form-text custom-invalid-feedback">Please fill the author title</small>
+                         <small id="fnHelp" *ngIf="passwd.errors?.minlength && passwd.touched" class="form-text custom-invalid-feedback">passwd must contain atleast 8 characters</small>
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-12 pull-left">
+                       <fieldset>
+                        <label>Confirm Password</label>
+                        <input type="password" formControlName="passwd2" class="form-control">
+                       <div class="text-danger" *ngIf="passwd2.invalid && (passwd2.dirty || passwd2.touched)">
+                         <div *ngIf="passwd2.errors['required']">Password confirm is required </div>
+                         <div *ngIf="passwd2.errors['compare']"> Password confirm do not match</div>
+                       </div>
+                      </fieldset>
+                      </div>
+                      <div class="col-lg-12 pull-left">
+                        <p>To make your password stronger: </p>
+                        <ul >
+                          <li> Make it at least 6 characters</li>
+                          <li> Add lowercase letters</li>
+                          <li> Add uppercase letters</li>
+                          <li> Add numbers</li>
+                          <li> Add punctuation</li>
+                        </ul>
+                        <p>To change the current user password, enter the new password in both fields. </p>
+                      </div>
+                </div>
+            </div>
+          </div>
+          
+           
+        </div>
+        <div class="col-lg-12 text-left" style="display: inline-block;">
+        	 <button type="button" [disabled]="accountupdateForm.invalid" (click)="submitHandler()" class="btn btn-primary" style="margin-right: 10px;">Save</button>
+           <button type="button"  class="btn btn-danger">Cancel account</button>
+        </div>
+</form>

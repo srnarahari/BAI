@@ -1,0 +1,192 @@
+
+<div class="col-lg-12">
+
+  <h4>Create Travel Destination </h4>
+</div>
+ <form method="post" class="article_part_form" [formGroup]="tavelCityForm">
+  
+ 	<div class="col-lg-8 pull-left">
+ 		
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label for="edit-language">Select Destination <span class="asstrick">*</span></label>
+ 			<select   [ngClass]="{'form-control': true,
+                  'is-invalid': field_tr_city_reference.invalid && field_tr_city_reference.touched,
+                  'is-valid': field_tr_city_reference.valid}"  formControlName="field_tr_city_reference" class="form-control">
+                  <option  selected [ngValue]="null">- Select a value -</option><option value="410850">Other</option><option value="399543">Abu Dhabi</option><option value="25323">Amsterdam</option><option value="24638476">Antwerp</option><option value="18212551">Aspen</option><option value="24638467">Atlanta</option><option value="24638477">Avignon</option><option value="25324">Bangalore</option><option value="24604074">Bangkok</option><option value="17166">Barcelona</option><option value="24608141">Basel</option><option value="17173">Beijing</option><option value="24638478">Beirut</option><option value="17179">Berlin</option><option value="24638474">Beverly Hills</option><option value="25370">Bogota</option><option value="24638464">Boston</option><option value="24638479">Brescia</option><option value="24638480">Bruges</option><option value="24620733">Brussels</option><option value="24638553">Budapest</option><option value="17177">Buenos Aires</option><option value="24638554">Cannes</option><option value="24638555">Cape Town</option><option value="24609517">Caribbean</option><option value="24638556">Chagny</option><option value="17162">Chicago</option><option value="24638447">Cologne</option><option value="24638557">Copenhagen</option><option value="24638475">Culver City</option><option value="24638471">Dallas</option><option value="16577">Delhi</option><option value="24638468">Denver</option><option value="24604073">Dubai</option><option value="24638558">Dublin</option><option value="24638559">Düsseldorf</option><option value="24638560">Edinburgh</option><option value="24638561">Eindhoven</option><option value="24638562">Florence</option><option value="25144">Frankfurt</option><option value="24638563">Freiburg</option><option value="24609081">Geneva</option><option value="24638564">Ghent</option><option value="24638565">Glasgow</option><option value="25344">Goa</option><option value="24638566">Gravenhage</option><option value="24638567">Haarlem</option><option value="24638568">Hamburg</option><option value="24638570">Helsinki</option><option value="25146">Hong Kong</option><option value="24638472">Houston</option><option value="17174">Istanbul</option><option value="24620734">Jakarta</option><option value="24638571">Johannesburg</option><option value="24638572">Knokke</option><option value="24638573">Kolkata</option><option value="24638450">Kyoto</option><option value="24638575">Lausanne</option><option value="24638576">Liège</option><option value="24638578">Lisbon</option><option value="17168">London</option><option value="17163">Los Angeles</option><option value="24638580">Lucerne</option><option value="24638581">Maastricht</option><option value="17169">Madrid</option><option value="24627515">Manilla</option><option value="24638584">Marseille</option><option value="25366">Melbourne</option><option value="25367">Mexico City</option><option value="17164">Miami</option><option value="17170">Milan</option><option value="25368">Montreal</option><option value="23982">Moscow</option><option value="25369">Mumbai</option><option value="25145">Munich</option><option value="24638585">Naples</option><option value="16578">New York</option><option value="24638586">Oslo</option><option value="16579">Paris</option><option value="24638465">Philadelphia</option><option value="19388">Rio de Janeiro</option><option value="17171">Rome</option><option value="24638587">Rotterdam</option><option value="24638473">San Antonio</option><option value="25372">San Francisco</option><option value="24606911">Santa Fe</option><option value="25371">Santiago</option><option value="18465">São Paulo</option><option value="24638588">Schoonhoven</option><option value="20894">Seoul</option><option value="24638657">Sevres</option><option value="17175">Shanghai</option><option value="25373">Singapore</option><option value="24638658">Sint-Martens-Latem</option><option value="24638659">Stalden</option><option value="24638660">Stockholm</option><option value="24638661">Straubing</option><option value="17176">Sydney</option><option value="24638662">Taipei</option><option value="24638663">Tel Aviv</option><option value="18212552">The Hamptons</option><option value="20893">Tokyo</option><option value="17165">Toronto</option><option value="24638664">Turin</option><option value="24638665">Utrecht</option><option value="24638666">Valencia</option><option value="24638667">Vancouver</option><option value="18212546">Venice</option><option value="24638668">Venlo</option><option value="24638669">Verona</option><option value="17172">Vienna</option><option value="24638670">Waalwijk</option><option value="24638671">Warsaw</option><option value="24638672">Warszawa</option><option value="24638466">Washington DC</option><option value="24638673">West Covina</option><option value="24638674">West Hollywood</option><option value="24638675">Wijnegem</option><option value="24638676">Zaltbommel</option><option value="24638677">Zuoz</option><option value="24638448">Zurich</option><option value="24638678">Zwolle</option></select>
+                   <small *ngIf="field_tr_city_reference.errors?.required && field_tr_city_reference.touched" class="form-text custom-invalid-feedback">Field is required</small>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>Short Title<span class="asstrick">*</span></label>
+ 			  <input  type="text" formControlName="field_short_title" [ngClass]="{'form-control': true,'is-invalid': field_short_title.invalid && field_short_title.touched,'is-valid': field_short_title.valid}" class="form-control"/>
+       <small *ngIf="field_short_title.errors?.required && field_short_title.touched" class="form-text custom-invalid-feedback">Please fill the short title</small>
+       <small *ngIf="field_short_title.errors?.minlength && field_short_title.touched"  class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>Lattitude  <span class="asstrick">*</span></label>
+			<input type="text" class="form-control" formControlName="lattitude" [ngClass]="{'form-control': true,'is-invalid': lattitude.invalid && lattitude.touched,'is-valid': lattitude.valid}"/>
+      <small *ngIf="lattitude.errors?.required && lattitude.touched" class="form-text custom-invalid-feedback">Please fill the short title</small>
+			<span>Enter only numeric value with decimal.</span>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>Longitude   <span class="asstrick">*</span></label>
+			<input type="text" class="form-control" formControlName="longitude" [ngClass]="{'form-control': true,'is-invalid': longitude.invalid && longitude.touched,'is-valid': longitude.valid}"/>
+      <small *ngIf="longitude.errors?.required && longitude.touched" class="form-text custom-invalid-feedback">Please fill the short title</small>
+			<span>Enter only numeric value with decimal.</span>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>Destination Tag Line</label>
+			<input type="text" class="form-control" formControlName="field_tr_city_tagline"/>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>Best Time to Visit</label>
+			<textarea class="form-control" formControlName="field_tr_city_best_visit_time"></textarea>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+ 			<label>What To Pack</label>
+			<textarea class="form-control" formControlName="field_tr_city_what_to_pack"></textarea>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+       <label>General Tips</label>
+       <ckeditor [editor]="ClassicEditorBuild" formControlName="genral_tips" style="margin: 10px 0"></ckeditor>
+			
+		</fieldset>
+		<fieldset class="col-lg-12 no-padding">
+ 			<label>Language(s)</label>
+			<input type="text" class="form-control" formControlName="language"/>
+ 		</fieldset>
+ 		<fieldset class="col-lg-12 no-padding">
+       <label>Teaser</label>
+       <ckeditor [editor]="ClassicEditorBuild" formControlName="teaser" style="margin: 10px 0"></ckeditor>
+	
+		</fieldset>
+		<fieldset>
+			<label>Top Image 1 </label>
+			 <input multiple="multiple" class="form-control" type="file" (change)="top_image_1($event)" />
+			 <div class="description">Files must be less than <strong>2 MB</strong>.<br>Allowed file types: <strong>png gif jpg jpeg</strong>.<br>Images must be larger than <strong>970x246</strong> pixels.</div>
+		</fieldset>
+		<fieldset>
+			<label>Wide Image  </label>
+			 <input multiple="multiple" class="form-control" type="file" (change)="wide_images($event)" />
+			 <div class="description">Will be used for Travel landing page carousel<br>Files must be less than <strong>2 MB</strong>.<br>Allowed file types: <strong>png gif jpg jpeg</strong>.<br>Images must be larger than <strong>970x400</strong> pixels.</div>
+		</fieldset>
+		<fieldset>
+			<label>Top Image 2   </label>
+			 <input multiple="multiple" class="form-control" type="file" (change)="top_Images_2($event)" />
+			 <div class="description">Files must be less than <strong>2 MB</strong>.<br>Allowed file types: <strong>png gif jpg jpeg</strong>.<br>Images must be larger than <strong>970x246</strong> pixels.</div>
+		</fieldset>
+		<fieldset>
+			<label>Top Image 3   </label>
+			 <input multiple="multiple" class="form-control" type="file" (change)="top_Images_3($event)" />
+			<div class="description">Files must be less than <strong>2 MB</strong>.<br>Allowed file types: <strong>png gif jpg jpeg</strong>.<br>Images must be larger than <strong>970x246</strong> pixels.</div>
+		</fieldset>
+
+ 		<fieldset class="col-lg-12 no-padding" formGroupName="top_restaurants">
+ 			  <table class="table table-striped table-bordered">
+             <thead>
+                <tr>
+                    <th>Top Restaurants</th>
+                </tr>
+             </thead>
+             <tbody>
+              <tr>
+                <td>	
+					<input class="form-control" type="text" formControlName="field_restaurant" >
+                </td>
+              </tr>
+              <tr>
+                <td>	
+					<input class="form-control" type="text" formControlName="field_restaurant" >
+                </td>
+              </tr>
+              <tr>
+                <td>	
+					<input class="form-control" type="text" formControlName="field_restaurant" />
+                </td>
+              </tr>
+              
+          </tbody>
+         </table>
+ 		</fieldset>
+ 			<fieldset class="col-lg-12 no-padding" formGroupName="top_shopings">
+ 			  <table class="table table-striped table-bordered">
+             <thead>
+                <tr>
+                    <th>Top Shoppings</th>
+                </tr>
+             </thead>
+             <tbody>
+              <tr>
+                <td>	
+					<input class="form-control" type="text" formControlName="top_shoping" >
+                </td>
+              </tr>
+              <tr>
+                <td>	
+					<input class="form-control" type="text" formControlName="top_shoping" >
+                </td>
+              </tr>
+              <tr>
+                <td>	
+					<input class="form-control" type="text" formControlName="top_shoping" />
+                </td>
+              </tr>
+              
+          </tbody>
+         </table>
+ 		</fieldset>
+ 		<fieldset>
+		  <div class="form-group">
+	 		<label>Tags</label>
+	 		<input class="form-control" type="text" formControlName="tags" />
+	 	  </div>
+ 		</fieldset>
+
+ 		<fieldset class="col-lg-12 no-padding bottom_section">
+ 			 <div class="tabs">
+                      <div class="tab-button-outer">
+                        <ul id="tab-button">
+                          <li class="is-active"><a href="#tab01_au" class="active">Authoring information By <span class="anonymus">Anonymous </span> <span class="show_author"></span> 
+                            <span class="author_on show_author_hide">  </span></a></li>
+                          <li><a href="#tab02_au">A Publishing options 
+                            <span class="not_publised show_author_hide">Not published</span>
+                            <span class="show_author_1 show_author_hide"></span>
+                            <span class="show_author_2 show_author_hide"></span>
+                            <span class="show_author_3 show_author_hide"></span>
+                          </a></li>            
+                        </ul>
+                      </div>
+                      <div class="tab-contents_1">
+                      <div id="tab01_au" class="tab-contents"> 
+                       <fieldset>
+                       <label>Authored by</label>
+                       <input type="text" formControlName="authored_by" class="form-control seo_keywords"/>
+                       <span>Leave blank for Anonymous.</span>
+                    </fieldset>
+                     <fieldset>
+                       <label>Authored on</label>
+                       <input type="text" formControlName="authored_on" class="form-control author_on_section"/>
+                       <span>Format: 2019-02-07 23:48:24 -0500. The date format is YYYY-MM-DD and -0500 is the time zone offset from UTC. Leave blank to use the time of form submission.</span>
+                    </fieldset>
+                    </div>
+                     <div id="tab02_au" class="tab-contents"> 
+                       <label class="col-lg-12"> 
+                        <input type="checkbox" formControlName="published" class="checked_1"  value="Published,"> Published
+                      </label>
+                       <label class="col-lg-12"> 
+                        <input type="checkbox" class="checked_2" formControlName="published" value="Promoted to front page,"> Promoted to front page
+                      </label>
+                      <label class="col-lg-12"> 
+                        <input type="checkbox" class="checked_3" formControlName="published" value="Sticky at top of lists">Sticky at top of lists
+                      </label>
+                    </div>
+                  </div>
+                  </div>
+ 		</fieldset>
+ 	</div>
+
+
+ 	 <div class="col-lg-12 text-left" style="display: inline-block;margin-top: 20px;">
+        	 <button type="button" [disabled]="tavelCityForm.invalid" (click)="submitHandler()" class="btn btn-primary" style="margin-right: 10px;">Create</button>
+           <!-- <button type="button"  class="btn btn-danger">Cancel account</button> -->
+        </div>
+ </form>

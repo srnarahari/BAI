@@ -1,0 +1,111 @@
+.article_part_form .ng-input input {margin-bottom:0}
+
+agm-map {
+  height: 300px;
+}
+span{font-size:13px;}
+.i-accordion .panel-heading,
+.d-accordion .panel-heading,
+.accordion-2a .panel-heading,
+.accordion-2b .panel-heading,
+.accordion-3 .panel-heading { cursor: pointer; }
+.d-accordion .panel-heading.collapsed .fa-chevron-up:before { content: '\f078'; }
+.panel-default {
+    border-color: #ddd;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #f1f1f1;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel h4 {    font-size: 15px;
+    padding: 6px 10px 0;}
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 8px 15px;
+      margin-top: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+      border: 1px solid #f2f2f2;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.lifespan_acco {border:1px solid #ddd;    padding: 11px;
+    margin: 10px 0;}
+.lifespan_acco h2 {font-size:18px;}
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tabs {margin-top:20px;}
+#tab-button li {
+  width: 100%;
+}
+#tab-button li a {
+  display: block;
+  padding: .5em;
+  background: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  font-weight:bold;
+  font-size:12px;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+      background: #000;
+    color: #fff;
+}
+.tab-contents {
+
+  border: 1px solid #ddd;
+}
+.tab-contents fieldset{    padding: 14px;
+    border-bottom: 1px solid #ccc;}
+.show_author,.show_author_hide{
+	color:#0088ff;
+}
+.tab-button-outer {width: 30%;
+    float: left;}
+.tab-contents_1 {    width: 70%;
+    float: left;}

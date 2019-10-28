@@ -1,0 +1,128 @@
+<div class="container microsite">
+  <div class="col-lg-12 pull-left no-padding">
+  	<div class="col-lg-8 no-padding pull-left">
+  		<h1>Michael Rosenfeld Gallery, LLC </h1>
+  		<nav>
+  			<ul class="list-inline">
+  				<li ><a [routerLink]="['/layout/microsite-edit']" >Overview </a></li>
+  				<li><a [routerLink]="['/layout/microsite-edit-events']"  class="active">Events </a></li>
+  				<li><a [routerLink]="['/layout/microsite-edit-artwork']" >Artworks </a></li>
+  			</ul>
+  		</nav>
+  	</div>
+  	<div class="col-lg-4 text-right pull-left">
+
+  		<a href="#">View Microsite <i class="fa fa-fw fa-external-link"></i></a><br/>
+  		<a href="#">Contact Client Services <i class="fa fa-fw fa-envelope-open"></i></a>
+  	</div>
+  </div>
+<div  class="article_part_form col-lg-12 pull-left no-padding" style="margin-top: 30px;">
+   <div class="col-lg-12 no-padding">
+      <div class="card card-default">
+           <div class="card-body">
+           	<div class="col-lg-12 no-padding pull-left" style="padding-top: 11px;"> 
+           <div class="col-lg-4 pull-left no-padding">
+              <label class="col-xs-12 label-control">Sort by name or email id</label>
+              <select class="form-control input-sm" [(ngModel)]="sortBy">
+                  <option ngValue="">Sort by name or email id</option>
+                  <option ngValue="firstName">First name</option>
+                  <option ngValue="userName">Email</option>         
+              </select>
+           </div>
+           <div class="col-lg-4 pull-left">
+              <label class="col-xs-12 label-control">Sort by order</label>
+              <select class="form-control input-sm" [(ngModel)]="sortOrder">
+                  <option ngValue="1">Ascending</option>
+                  <option ngValue="-1">Descending</option>
+                  <option ngValue="badValue">Bad value</option>
+              </select>
+          </div>
+          <div class="col-lg-4 pull-left search_icon">
+             <label class="label-control">Search by Email id</label>
+             <input type="text"  [(ngModel)]="filterQuery" placeholder="Search by Email id" class="form-control search_input" />
+       <!--  <img class="user-avatar" src="assets/images/logo.png" width="150px" /> -->
+          </div>
+        </div>
+       	<div class="col-lg-12 pull-left no-padding">
+			<a [routerLink]="['/layout/microsite-events']" class="btn btn-primary" style="color: #fff;
+    font-size: 13px;padding: 8px 24px;border-radius: 3px;margin-bottom: 20px;">
+				+ Add New Event
+			</a>
+			<a href="#" class="btn btn-default" style="border: 1px solid #b1b1b1;
+    padding: 8px 16px;margin-left: 10px;font-size: 13px;margin-bottom: 20px;">
+				Publish
+			</a>
+			<a href="#" class="btn btn-default" style="border: 1px solid #b1b1b1;
+    padding: 8px 16px;margin-left: 10px;font-size: 13px;margin-bottom: 20px;">
+				Unpublish
+			</a>
+	    </div>
+        <form [formGroup]="user_activate">
+        <table class="table table-hover table-striped" [mfData]="data | dataFilter : filterQuery : title" #mf="mfDataTable" [mfRowsOnPage]="5"  [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+            	<th><input type="checkbox" name="" style="margin-bottom: 0" /></th>
+            	<th>Event Photo</th>
+              <th scope="col"><mfDefaultSorter by="firstName">Event Title</mfDefaultSorter></th>
+              <th>Date</th>
+              <th>Status</th>
+              <th scope="col">Edit/Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data">
+               <td><input type="checkbox" name=""></td>
+               <td>
+               	<div *ngFor="let images of item.files">
+               		<div *ngFor="let events of images.main_events_photos">
+               			<img src="{{events.location}}" alt="{{events.originalname}}" style="width: 150px;height: 100px;" />
+
+               		</div>
+               			
+               </div>
+                </td>
+                  <td>{{item.title}}</td>
+                <td>{{item.field_event_date}}</td>
+                <td>{{item.published}} </td>
+              <td>
+                <button class="btn btn-primary"  type="submit" (click)="onEdit(item)">Edit </button>
+                <button class="btn btn-danger" style="margin-left:5px;"  type="submit" (click)="deleteItem(item)">Delete </button>
+              </td>
+            
+            </tr>
+  </tbody>
+ <tfoot>
+    <tr>
+        <td colspan="5" valign="text-right">
+            <mfBootstrapPaginator style="float:right;"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+  
+ <!-- <div class="row">
+  <div class="tagSelection col-lg-8">
+      <ng-select [items]="articledata | async"
+        bindLabel="title"
+        formControlName="articles"
+        [hideSelected]="true"
+        [loading]="articleloading"
+        placeholder="Search Tags"
+        [typeahead]="articleinputs$"
+       >
+    </ng-select>
+  </div>
+    <div class="add-tag-button col-lg-4">
+      <button type="button" class="btn btn-primary" (click)="addAritcle(user_activate.articles)">Add content</button>
+    </div>
+    </div> -->
+  </form>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+</div>

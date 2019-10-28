@@ -1,0 +1,506 @@
+ <form method="post" class="article_part_form" [formGroup]="entityProfileLocationForm">
+ <div class="col-lg-8 pull-left">
+  <div class="col-lg-12 no-padding">
+    <div class="card card-default mb-3">
+      <div class="card-header">
+          Create Entity Profile & Location
+      </div>
+            <div class="card-body row">
+                  <div class="col-lg-12 pull-left no-padding">
+                    <div class="col-lg-12 pull-left ">
+                      <fieldset>
+                       <label>Entity Type</label>
+                       <ng-select [items]="entityType_all"
+                         bindLabel="entityTypeLael"
+                         [selectOnTab]="true"
+                         bindValue="entityTypeLael"
+                          placeholder="Please select Entity Type"
+                        formControlName="entityType"
+                         >
+                       </ng-select>
+
+                       </fieldset>
+                     </div>
+
+
+
+                    <div class="col-lg-12 pull-left">
+                      <fieldset>
+                        <label>Entity name<span class="asstrick">*</span></label>
+                        <input type="text" formControlName="entityName" class="form-control" [ngClass]="{'form-control': true,'is-invalid': entityName.invalid && entityName.touched,'is-valid': entityName.valid}" />
+                         <small *ngIf="entityName.errors?.required && entityName.touched" class="form-text custom-invalid-feedback">Please fill the title</small>
+                  <small *ngIf="entityName.errors?.minlength && entityName.touched"  class="form-text custom-invalid-feedback">Value must contain atleast 5 characters</small>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+            </div>
+ </div>
+ <!--create-entity-->
+  <div class="col-lg-12 no-padding">
+
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                 Entity Details
+                </div>
+                <div class="card-body row">
+
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>WebSite Title</label>
+                          <input type="text" formControlName="websiteTitle" class="form-control"/>
+                      </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>URL</label>
+                         <input type="text" formControlName="websiteurl" class="form-control"/>
+                    </fieldset>
+                  </div>
+                   <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Facebook Website</label>
+                         <input type="text" formControlName="facebookWebsite" class="form-control"/>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Twitter Website</label>
+                          <input type="text" formControlName="twitterWebsite" class="form-control"/>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Google+ Website</label>
+                          <input type="text" formControlName="googlePlusWebsite" class="form-control"/>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                      <fieldset>
+                       <label>Brief Info </label>
+                       <ckeditor [editor]="ClassicEditorBuild" formControlName="briefInfo" ></ckeditor>
+                     </fieldset>
+                   </div>
+                  <div class="col-lg-12 pull-left">
+                       <fieldset>
+                        <label>Specialities</label>
+                        <select class="" multiple="multiple" formControlName="specialties" id="edit-field-specialties-en" class="form-select form-control">
+                          <option value="_none">- None -</option>
+                          <option value="24635924">Boats</option>
+                          <option value="24635860">Modern &amp; Post-War British Art</option>
+                          <option value="24635859">Modern &amp; Contemporary Southeast Asian Art</option>
+                          <option value="24635911">Mirrors</option>
+                          <option value="24635857">Minitures</option>
+                          <option value="24635858">Modern British &amp; Irish Art</option>
+                          <option value="24635861">New Zealand</option>
+                          <option value="24635913">Persian Carpets</option>
+                          <option value="24635862">Orientalist Art</option>
+                          <option value="24635880">Oceanic</option>
+                          <option value="24635900">Mid-20th Centur</option>
+                          <option value="24635873">20th Century</option>
+                          <option value="24635855">Italian Paintings</option>
+                          <option value="24635854">Indian, Himalayan and Southeast Asian Art</option>
+                          <option value="24635853">Indian Art (Modern &amp; Contemporary)</option>
+                          <option value="24635903">Home Furnishings</option>
+                          <option value="24635884">Judaica</option>
+                          <option value="24635888">Khmer and Southeast Asian Art</option>
+                          <option value="24635856">Marine Paintings</option>
+                          <option value="24635892">Maps</option>
+                          <option value="24635906">Lighting</option>
+                          <option value="24635915">Porcelain</option>
+                          <option value="24635863">Portraits &amp; Nudes</option>
+                          <option value="24635922">Watches</option>
+                          <option value="24635872">Victorian, Pre-Raphaelite &amp; British Impressionist Art</option>
+                          <option value="24635871">Turkish &amp; Middle Eastern (Modern &amp; Contemporary)</option>
+                          <option value="24635870">Topographical Pictures</option>
+                            <option value="24635917">Tapestry</option>
+                            <option value="24635887">Roman Art</option>
+                            <option value="24635877">Renaissance</option>
+                            <option value="24635881">Pre-Colombian</option>
+                            <option value="24634367">Post Modern</option>
+                            <option value="24635865">Russian Paintings</option>
+                            <option value="24635902">Scandinavian</option>
+                            <option value="24635869">Spanish Paintings</option>
+                            <option value="24635868">South African</option>
+                            <option value="24635905">Silver</option>
+                            <option value="24635885">Greek Art</option>
+                            <option value="24635876">Medieval</option>
+                            <option value="24635843">Australian Art</option>
+                            <option value="24635842">Asian 20th Century &amp; Contemporary Art</option>
+                            <option value="24635879">Asian</option>
+                            <option value="24635899">Art Nouveau</option>
+                            <option value="24635891">Autographs</option>
+                            <option value="24635923">Autos</option>
+                            <option value="24635918">Bronze</option>
+                            <option value="24635844">British Paintings</option>
+                            <option value="24635889">Books and Antiquarian</option>
+                            <option value="24635909">Glass</option>
+                            <option value="24635841">Arab, Iranian &amp; Turkish Art (Modern &amp; Contemporary)</option>
+                            <option value="24635901">American Contemporary</option>
+                            <option value="24635839">American Art</option>
+                            <option value="24635838">African Paintings</option>
+                            <option value="24635919">20th century carpets and rugs</option>
+                            <option value="24635897">American Furniture, Decorative Art &amp; Folk Art</option>
+                            <option value="24635840">American Indian Art</option>
+                            <option value="24635894">Antiques</option>
+                            <option value="24635875">Animalier Bronze</option>
+                            <option value="24635882">Ancient Art</option><option value="24635845">Canadian</option><option value="24635898">Art Deco</option><option value="24635920">Candelabra and chandelier</option><option value="24635883">Egyptian, classical, Near-Eastern antiquities</option><option value="24635895">English</option><option value="24635908">Design Objects</option><option value="24635851">German, Austrian &amp; Central European Paintings</option><option value="24635893">Furniture</option><option value="24635896">European</option><option value="24635921">Fine Jewelry</option><option value="24635850">French Paintings</option><option value="24635907">Design Lighting</option><option value="24635848">Dutch &amp; Belgian Paintings</option><option value="24635904">Crystal</option><option value="24635916">Ceramics</option><option value="24635878">Classical</option><option value="24635847">Chinese Modern Paintings</option><option value="24635886">Chinese Art</option><option value="24635914">Chinese Carpets</option><option value="24635846">Chinese Classical Paintings</option><option value="24635890">Collectible Books &amp; Manuscripts</option><option value="24635912">Clocks</option><option value="24634366">Pop Art</option><option value="24634365">Photorealist</option><option value="24634368">Post-War</option><option value="6783">Prints &amp; Multiples&nbsp;</option><option value="24586663">Russian Art</option><option value="24634378">Rental</option><option value="24634767">Real Estate</option><option value="6781">Photography</option><option value="6776">Modern Art</option><option value="6799">Native &amp; Tribal Arts</option><option value="6790">Old Masters</option><option value="24634369">Scandinavian Modern</option><option value="24634769">Yachts</option><option value="24634768">Vintage cars</option><option value="24634375">Vintage</option><option value="24634374">Victorian</option><option value="6744">Urban Art</option><option value="24634370">Spanish</option><option value="24586664">Sculpture</option><option value="24634371">Street Art</option><option value="24634372">Surrealist</option><option value="24634362">Modern</option><option value="24634376">Classic</option><option value="24634645">Chinese</option><option value="6752">Contemporary Art</option><option value="24634352">Cubist</option><option value="24586661">Drawings &amp; Works on Paper&nbsp;</option><option value="6735">Design</option><option value="6748">Decorative Art &amp; Antiques</option><option value="24586660">Artist's Books</option><option value="6746">Asian &amp; Islamic Art&nbsp;</option><option value="6791">Early American Art</option><option value="24634358">Italian Design</option><option value="24634357">Italian</option><option value="6772">Latin American Art</option><option value="24634359">Louis XVI</option><option value="24634361">Minimalist</option><option value="24634360">Mid-century modern</option><option value="24634356">Impressionist</option><option value="6764">Folk, Naïve, &amp; Outsider Art</option><option value="24634353">Expressionist</option><option value="24586662">Emerging Artists&nbsp;</option><option value="24634377">For Sale</option><option value="24634354">French and Continental</option><option value="24634355">Georgian</option>
+                          <option value="6729">19th C European Art</option>
+                        </select>
+
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-12 pull-left">
+                          <fieldset class="border_bottom_section">
+                            <label>Venue Artist(s)</label>
+                               <ng-select  [items]="artistdata"
+                                          bindLabel="artistName"
+                                          formControlName="artistData"
+                                          [multiple]="true"
+                                          [hideSelected]="true"
+                                          [loading]="artistsloading"
+                                          placeholder="Search artists"
+                                          [typeahead]="artistinputs$"
+                                >
+                                </ng-select>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.card -->
+        </div>
+        <!--entity-details-->
+         <div class="col-lg-12 no-padding" formArrayName="enitity_array_location">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                  Enter Location's information
+                </div>
+                <div class="card-body row">
+                <div class="col-lg-12 pull-left no-padding" *ngFor="let group of addEnitityArray.controls; let i = index;" [formGroupName]="i">
+                <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Location Name ({{i+1}})<span class="asstrick">*</span></label>
+                          <input type="text" formControlName="locationName" class="form-control"/>
+                       </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Location Photo</label>
+                        <img [src]='uploadedFile' alt="Forest" style="width:150px" *ngIf="uploadedFile">
+                          <input type="file" formControlName="photo" class="form-control" (change)="getFileDetails($event)"/>
+
+                      </fieldset>
+                  </div>
+
+                   <div class="col-lg-12 pull-left">
+                    <fieldset>
+                        <label>Additional</label>
+                         <input type="text" formControlName="additional" class="form-control"/>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 pull-left">
+                      <fieldset>
+                      <div class="form-group">
+                          <label>Select Country <span class="asstrick">*</span></label>
+
+                          <select class="form-control" formControlName="country" (change)="onChangeCountry($event.target.value)">
+                             <option *ngIf="countryInfo == ''" value="-1">--Select Country--</option>
+                            <option *ngFor="let country of countryInfo; let i = index" value="{{i}}" data-value="{{country.CountryName}}">{{country.CountryName}}</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select State</label>
+                            <select class="form-control"  formControlName="stateProvince" (change)="onChangeState($event.target.value)">
+                               <option *ngIf="stateInfo == ''" selected  [ngValue]="-1">--Select State--</option>
+                              <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">{{state.StateName}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select City</label>
+                            <select class="form-control" formControlName="city">
+                                 <option *ngIf="cityInfo == ''" selected [ngValue]="-1" >--Select CIty--</option>
+                              <option *ngFor="let city of cityInfo; let k = index" value="{{k}}">{{city}}</option>
+                            </select>
+                        </div>
+
+
+                      </fieldset>
+                    </div>
+
+                  <div class="col-lg-12 pull-left">
+                      <fieldset>
+                       <label>Postal code</label>
+
+                       <input type="text" formControlName="postalCode" class="form-control"/>
+                     </fieldset>
+                   </div>
+                   <div class="col-lg-12 pull-left">
+                      <fieldset>
+                          <label>Street<span class="asstrick">*</span></label>
+                           <input type="text" formControlName="street" class="form-control" placeholder="" />
+
+                        </fieldset>
+                    </div>
+
+                   <div class="col-lg-12 pull-left">
+                       <fieldset>
+                       <label>Latitude </label>
+
+                       <input type="text" formControlName="latitude"  class="form-control"/>
+                     </fieldset>
+                   </div>
+
+                   <div class="col-lg-12 pull-left">
+                      <fieldset>
+                       <label>Longitude </label>
+
+                       <input type="text" formControlName="longitude"  class="form-control"/>
+                     </fieldset>
+                   </div>
+                   <div class="col-lg-12 pull-left">
+                      <fieldset>
+                      <label>Neighborhood</label>
+                      <ng-select [items]="neighborhood_all"
+                        bindLabel="NeighborhoodLabel"
+                        bindValue="NeighborhoodLabel"
+                        placeholder="Please select Neighborhood"
+                        formControlName="neighborhood"
+                        >
+                      </ng-select>
+
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12 pull-left">
+                        <fieldset>
+                         <label>Location Phone </label>
+
+                         <input type="text" (keypress)="keyPress($event)" formControlName="locationPhone" class="form-control"  />
+                      </fieldset>
+                     </div>
+                     <div class="col-lg-12 pull-left">
+                        <fieldset>
+                         <label>Location Fax </label>
+
+                         <input type="text" formControlName="locationFax" class="form-control"/>
+                       </fieldset>
+                     </div>
+                     <div class="col-lg-12 pull-left">
+                        <fieldset>
+                         <label>Location Email </label>
+
+                         <input type="text" formControlName="locationEmail" class="form-control"/>
+
+                       </fieldset>
+
+                     </div>
+                     <div class="col-lg-12 pull-left">
+                        <fieldset>
+                         <label>Opening Hours Alternative Text </label>
+                         <ckeditor [editor]="ClassicEditorBuild" formControlName="openingHoursAlternative" ></ckeditor>
+
+                       </fieldset>
+                     </div>
+                     <div class="col-lg-12 pull-left">
+                        <fieldset>
+                        <label>Gallery Guide Region</label>
+                        <ng-select [items]="region_all"
+                          bindLabel="regionLabel"
+                          bindValue="regionLabel"
+                          placeholder="Please select region"
+                          formControlName="region"
+                          >
+                        </ng-select>
+
+                        </fieldset>
+                      </div>
+
+                  <div class="col-lg-12 pull-left">
+                      <button class="btn btn-primary" style="margin-right:10px;margin-bottom:20px;"
+                                        (click)="addParagraph()">Add Another Location
+                                </button>
+
+                                <button class="btn btn-danger" style="margin-right:10px;margin-bottom:20px;"
+                                        (click)="removeParagraph(i)">Remove Location
+                                </button>
+                  </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- /.card -->
+        </div>
+</div>
+ <div class="col-lg-4 no-padding pull-left">
+
+  <div class="col-lg-12 no-padding">
+    <div class="card card-default mb-3">
+        <div class="card-header">
+            CEO Info
+        </div>
+        <div class="card-body row">
+            <div class="col-lg-12 pull-left">
+                <fieldset>
+                 <label>CEO Name </label>
+
+                 <input type="text" formControlName="CEO_Name" class="form-control"/>
+               </fieldset>
+             </div>
+             <div class="col-lg-12 pull-left">
+                <fieldset>
+                 <label>Chief Marketing Officer </label>
+
+                 <input type="text" formControlName="CEO_ChiefMarketingOfficer" class="form-control"/>
+               </fieldset>
+             </div>
+             <div class="col-lg-12 pull-left">
+                <fieldset>
+                 <label>Headquarters (City/Country) </label>
+
+                 <input type="text" formControlName="CEO_HeadquartersCityOrCountry" class="form-control"/>
+               </fieldset>
+             </div>
+<!--             <div class="col-lg-12 pull-left">-->
+<!--                <fieldset>-->
+<!--                <label>Event Location (Country)</label>-->
+<!--                <select class="form-control" formControlName="CEO_EventLocation">-->
+<!--                    <option *ngIf="countryInfo == ''" value="-1">&#45;&#45;Select Country&#45;&#45;</option>-->
+<!--                   <option *ngFor="let country of countryInfo; let i = index" value="{{i}}" data-value="{{country.CountryName}}">{{country.CountryName}}</option>-->
+<!--                 </select>-->
+<!--            -->
+<!--                </fieldset>-->
+<!--              </div>-->
+             <!-- <div class="col-lg-12 pull-left">
+               <agm-map [latitude]="lat" [longitude]="lng">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+             </div>  -->
+
+        </div>
+
+    </div>
+  </div>
+  <!--close-->
+    <div class="col-lg-12 no-padding">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                    Contract Details
+                </div>
+                <div class="card-body row">
+
+                    <div class="col-lg-12 pull-left">
+                      <fieldset>
+                        <label>Notes </label>
+
+                        <textarea class="form-control" rows="5" formControlName="contract_Notes"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12 pull-left">
+                      <fieldset>
+                        <label>Contract description </label>
+
+                        <textarea class="form-control" rows="5" formControlName="contract_Description"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12 pull-left">
+                      <fieldset>
+                       <label>Representative</label>
+
+                       <input type="text" formControlName="contract_Representative" class="form-control"/>
+                     </fieldset>
+                   </div>
+                </div>
+              </div>
+        <!-- /.card -->
+        </div>
+        <!--close-->
+ <div class="col-lg-12 no-padding">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                    Seo keywords
+                </div>
+                <div class="card-body row">
+
+                  <div class="col-lg-12 pull-left">
+                    <fieldset>
+
+                       <label>SEO Keywords</label>
+                       <input type="text" formControlName="seo_Keywords" class="form-control"/>
+                    </fieldset>
+                  </div>
+                   <div class="col-lg-12 pull-left">
+                       <fieldset>
+                        <label>SEO Description</label>
+                         <textarea class="form-control" rows="5" formControlName="seo_description"></textarea>
+                        </fieldset>
+                  </div>
+                </div>
+
+            </div>
+
+            <!-- /.card -->
+        </div>
+
+        <!-- generate lat or lon section-->
+        <div class="col-lg-12 no-padding">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                   Generate lat or long section for location
+                </div>
+                <div class="card-body row">
+
+                    <div class="col-lg-12 pull-left">
+                        <fieldset>
+                            <label>Street</label>
+                             <input type="text"  class="form-control" placeholder="Search Nearest Location"  (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search/>
+
+                          </fieldset>
+                      </div>
+                     <div class="col-lg-12 pull-left">
+                      <fieldset>
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                        </agm-map>
+
+                      </fieldset>
+                    </div>
+                     <div class="col-lg-12 pull-left">
+                         <fieldset>
+                         <label>Latitude </label>
+
+                         <input type="text" value="{{latitude}}" class="form-control"/>
+                       </fieldset>
+                     </div>
+
+                     <div class="col-lg-12 pull-left">
+                        <fieldset>
+                         <label>Longitude </label>
+
+                         <input type="text" value="{{longitude}}"  class="form-control"/>
+                       </fieldset>
+                     </div>
+
+                </div>
+
+            </div>
+
+            <!-- /.card -->
+        </div>
+    <!-- /.card -->
+</div>
+
+
+
+
+
+
+    <div class="col-lg-12 text-left pull-left">
+          <button type="button" [disabled]="entityProfileLocationForm.invalid" (click)="submitHandler()" class="btn btn-primary">Create</button>
+
+        </div>
+</form>
