@@ -31,7 +31,7 @@
     "jshint-stylish": "2.1.0",
     "jwt-simple": "0.5.0",
     "kareem": "1.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "lodash-node": "^3.10.2",
     "moment": "^2.23.0",
     "moment-range": "2.2.0",
