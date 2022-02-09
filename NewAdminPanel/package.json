@@ -63,7 +63,7 @@
         "rxjs-compat": "6.3.3",
         "sweetalert2": "^7.33.1",
         "table-dragger": "^1.0.2",
-        "yarn": "^1.6.0",
+        "yarn": "^1.22.0",
         "zone.js": "^0.8.26",
         "zxcvbn": "^4.4.2"
     },
