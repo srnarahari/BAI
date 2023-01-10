@@ -37,7 +37,7 @@
     "moment-range": "2.2.0",
     "mongodb": "2.2.11",
     "mongodb-core": "^1.2.31",
-    "mongoose": "4.5.8",
+    "mongoose": "4.13.21",
     "mongoose-schema-extend": "0.1.7",
     "multer": "^1.4.1",
     "node-cache": "^4.1.1",
@@ -67,11 +67,11 @@
     "gulp-develop-server": "^0.5.0",
     "gulp-jshint": "^2.0.0",
     "gulp-json-transform": "^0.3.0",
-    "gulp-livereload": "^3.8.1",
-    "gulp-mocha": "^2.2.0",
+    "gulp-livereload": "^4.0.2",
+    "gulp-mocha": "^8.0.0",
     "gulp-util": "^3.0.7",
     "jshint": "^2.9.7",
-    "mocha": "^2.2.4",
+    "mocha": "^10.2.0",
     "sinon": "^1.14.1",
     "yargs": "^3.31.0"
   }
